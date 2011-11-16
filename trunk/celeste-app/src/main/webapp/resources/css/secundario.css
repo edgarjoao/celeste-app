@@ -22,7 +22,7 @@ TR.dw_titulocolumna, TR.dw_ligas {
    margin-right: 0pt;
    margin-bottom: 2px;
    margin-left: 0pt;
-   background-image: url(../images/fondo_gris.gif);
+   background-image: url(../resources/images/fondo_gris.gif);
 }
 
 TD.dw_columnadatoTotal {
@@ -74,7 +74,7 @@ div.frame_hs{
 td.cb_titulocolumna{
    padding: 1px 0 2px 2px;
    font-size: 8pt;
-   background-image: url(../images/fondo_gris.gif);
+   background-image: url(../resources/images/fondo_gris.gif);
 }
 
 td.dw_etiqueta_campo {

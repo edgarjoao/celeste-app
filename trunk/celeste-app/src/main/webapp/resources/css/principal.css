@@ -1,7 +1,7 @@
 .boton{	
 color:#ffffff;
 background-repeat: repeat-x;
-background:url(../images/bluebg2.gif);
+background:url(../resources/images/bluebg2.gif);
 cursor:pointer;
 height: 20px;
 width:80px;
@@ -16,7 +16,7 @@ font-weight: bold;
 .boton_short{
 	color:#ffffff;
 background-repeat: repeat-x;
-background:url(../images/bluebg2.gif);
+background:url(../resources/images/bluebg2.gif);
 cursor:pointer;
 height: 20px;
 width:30px;
@@ -32,7 +32,7 @@ font-weight: bold;
 .boton_large{
 	color:#ffffff;
 background-repeat: repeat-x;
-background:url(../images/bluebg2.gif);
+background:url(../resources/images/bluebg2.gif);
 cursor:pointer;
 height: 20px;
 width:130px;
@@ -194,7 +194,7 @@ body {
    margin-right: 0pt;
    margin-bottom: 2px;
    margin-left: 0pt;
-   background-image: url(../images/fondo_gris.gif);
+   background-image: url(../resources/images/fondo_gris.gif);
 }
 .titulocolumnanumero {
 	font-family: Arial, Helvetica, sans-serif;

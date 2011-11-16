@@ -1,0 +1,16 @@
+<persistence xmlns="http://java.sun.com/xml/ns/persistence" version="1.0">
+  <persistence-unit name="MySQLDS" transaction-type="RESOURCE_LOCAL">  	
+      <provider>org.hibernate.ejb.HibernatePersistence</provider>    
+      <mapping-file>META-INF/orm.xml</mapping-file><!--
+      <class>com.sterling.digicheck.bank.entity.BankEntity</class>        
+      --><properties>        
+      	<property name="hibernate.connection.driver_class" value="${jdbc.driver}"/>
+      	<property name="hibernate.connection.url" value="${jdbc.url}"/>
+      	<property name="hibernate.connection.username" value="${jdbc.username}"/>
+      	<property name="hibernate.connection.password" value="${jdbc.password}"/> 
+      	<property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect"/>      	
+      	<property name="hibernate.show_sql" value="true" />
+      	<property name="use_sql_comments" value="false"/>      	
+      </properties>
+   </persistence-unit>
+</persistence>
