@@ -16,16 +16,6 @@
     <context:annotation-config /> 
     <context:component-scan base-package="com.condominium" />
 	
-	<bean class="org.springframework.orm.jpa.support.PersistenceAnnotationBeanPostProcessor" />
 
-	<bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
-		<property name="persistenceXmlLocation" value="classpath*:context/persistence.xml" />
-	</bean>
-
-	<bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
-		<property name="entityManagerFactory" ref="entityManagerFactory" />
-	</bean>
-	
-	<tx:annotation-driven transaction-manager="transactionManager" />  	 
 	 
 </beans>
