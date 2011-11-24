@@ -1,0 +1,364 @@
+.boton{	
+	color:#ffffff;
+	background-repeat: repeat-x;
+	background:url(../resources/images/bluebg2.gif);
+	cursor:pointer;
+	height: 20px;
+	width:80px;
+	border-width: 1px;
+	border-style: solid;
+	border-color: #588fc5;
+	text-align: center;
+	font-family: Helvetica, Arial, sans-serif;
+	font-weight: bold;
+ 	white-space: nowrap;
+}
+.boton_short{
+	color:#ffffff;
+	background-repeat: repeat-x;
+	background:url(../resources/images/bluebg2.gif);
+	cursor:pointer;
+	height: 20px;
+	width:30px;
+	border-width: 1px;
+	border-style: solid;
+	border-color: #588fc5;
+	text-align: center;
+	font-family: Helvetica, Arial, sans-serif;
+	font-weight: bold;
+ 	white-space: nowrap;
+}
+
+.boton_large{
+	color:#ffffff;
+	background-repeat: repeat-x;
+	background:url(../resources/images/bluebg2.gif);
+	cursor:pointer;
+	height: 20px;
+	width:130px;
+	border-width: 1px;
+	border-style: solid;
+	border-color: #588fc5;
+	text-align: center;
+	font-family: Helvetica, Arial, sans-serif;
+	font-weight: bold;
+	white-space: nowrap;
+}
+body {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 9px;
+	margin-left: 0px;
+	margin-top: 0px;
+	margin-right: 0px;
+	margin-bottom: 0px;
+	background-color: #FFFFFF;
+}
+.nota{
+	font-family: Arial, Helvetica, sans-serif;
+	font-size:9px;
+	color:#003366;
+}
+.Menu {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	color: #FFFFFF;
+	font-weight: bold;
+}
+.menuOpciones {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	font-weight: normal;
+	text-align: center;
+	color:#003366;
+	background: #F0F4FB;
+}
+.etiqueta {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 10px;
+	background: #F0F4FB;
+	text-align:right;
+	color:#003366;
+}
+.etiqueta_center {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 10px;
+	background: #F0F4FB;
+	text-align:center;
+	color:#003366;
+}
+.etiqueta_deshabilitada {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 10px;
+	background-color: #CCCCCC;
+	color:#003366;
+}
+.etiqueta_campo {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 10px;
+	background: #FFFFFF;
+	text-align:left;
+	color:#003366;
+	font-weight: bold;	
+}
+.etiqueta_campo_right {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 10px;
+	background: #FFFFFF;
+	text-align:right;
+	color:#003366;
+	font-weight: bold;
+}
+.etiqueta_campo_center {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 10px;
+	background: #FFFFFF;
+	text-align:center;
+	color:#003366;
+	font-weight: bold;
+}
+.etiqueta_bold_center {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 10px;
+	text-align:center;
+	color:#003366;
+	font-weight: bold;
+}
+.titulo_lista_interna {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 10px;
+	background: #FFFFFF;
+	color:#003366;
+	font-weight: bold;
+}
+.campo_texto {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 11px;
+	text-align:left;
+	color:#003366;
+}
+.campo_texto_r {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 10px;
+	text-align:right;
+	color:#003366;
+}
+.columnaCaptura {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 10px;
+	font-weight: normal;
+	text-align: left;
+	color:#003366;
+}
+
+.ligasMenu {
+	text-decoration: none;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	color: #FFFFFF;
+	font-weight: bold;
+}
+
+.ligas{
+	text-decoration: none;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 10px;
+	color: #003366;
+}
+.MenuColumna {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	color: #FFFFFF;
+	font-weight: bold;
+	background-color:RGB(58,106,182);
+	text-align:center;
+}
+.columnadato {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 10px;
+	font-weight: normal;
+	text-align: center;
+	color:#003366;
+}
+.columnanumero {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 10px;
+	font-weight: normal;
+	text-align: right;
+	color:#003366;
+}
+.titulocolumna {
+   padding: 1px 0 2px 2px;
+   font-size: 8pt;
+   padding-bottom: 2px;
+   margin-top: 2px;
+   margin-right: 0pt;
+   margin-bottom: 2px;
+   margin-left: 0pt;
+   background-image: url(../resources/images/fondo_gris.gif);
+}
+.titulocolumnanumero {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 11px;
+	color: #FFFFFF;
+	font-weight: bold;
+	background-color:#3A6AB6;
+	text-align: right;
+}
+.titulocolumnadetalle {
+	font-family: Arial, Helvetica, sans-serif;
+	text-align:center;
+	font-size: 11px;
+	color: #003366;
+	font-weight: bold;
+	background-color: #9FB9FD;
+}
+.titulocolumnanumerodetalle {
+	font-family: Arial, Helvetica, sans-serif;
+	text-align:right;
+	font-size: 11px;
+	color: #003366;
+	font-weight: bold;
+	background-color: #9FB9FD;
+}
+.tituloTabla {
+	text-decoration: none;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	color: #003366;
+	background: #FFFFFF;
+	font-weight: bold;
+	text-align:center;
+}
+.columnadatoNon {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 10px;
+	font-weight: normal;
+	text-align: center;
+	color:#003366;
+	background: #F0F4FB;
+}
+.columnaAmarilla {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 10px;
+	font-weight: normal;
+	text-align: center;
+	color:#003366;
+	background: #FFFF00;
+}
+.columnadatoPar {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 10px;
+	font-weight: normal;
+	text-align: center;
+	color:#003366;
+	background: #FFFFFF;
+}
+.columnadatoTotal {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 11px;
+	font-weight:bold;
+	text-align: center;
+	color:#003366;
+	border-top-width: 1px;
+	border-top-style: solid;
+	border-top-color: #003366;
+	background-color: #80A5E7;
+}
+.columnadatoSubTotal {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 11px;
+	font-weight:bold;
+	text-align: center;
+	color:#003366;
+	border: 1px solid #F0F4FB;
+}
+.noexiste {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 10px;
+	font-weight: normal;
+	text-align: center;
+	color:#CC0000;
+	background: #FFFFFF;
+}
+.separdorMenu {
+	color: #FFFFFF;
+	font-weight: bold;
+	font-size: 14px;
+}
+
+.errortext{
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 11px;
+	color: red;
+	font-weight: bold;
+}
+
+.infomessage{
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 11px;
+	color: blue;
+	font-weight: bold;
+}
+
+.breadcrumb_link {
+	font-family: sans-serif, Arial, Helvetica ;
+	font-size: 11px;
+	text-align:left;
+	color:#5A93D0;
+	font-weight: bold;
+}
+.breadcrumb_label{
+	font-family: sans-serif, Arial, Helvetica ;
+	font-size: 11px;
+	text-align:left;
+	color:#cacaca;
+	font-weight: bold;
+}
+
+.botonColumna{
+	font-size: 8px;
+	font-weight: normal;
+	text-align: center;
+	color:#003366;
+ 	border:none;
+	padding: 1px 0 2px 2px;
+   padding-bottom: 2px;
+   margin-top: 2px;
+   margin-right: 0pt;
+   margin-bottom: 2px;
+   margin-left: 0pt;
+}
+
+fieldset{
+	font-family: Helvetica, sans-serif,Arial;
+	font-size: 11px;
+	text-align:left;
+	color:#003366;
+	text-align:left;
+}
+
+.overdrawn{
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 10px;
+	font-weight: bold;
+	text-align: right;
+	color:#003366;
+}
+
+.overdrawnLIMIT{
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 10px;
+	font-weight: bold;
+	text-align: right;
+	color:#FFFFFF;
+	background-color:#CC0033;
+}
+
+.overdrawnCREDIT{
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 10px;
+	font-weight: bold;
+	text-align: right;
+	color:#000000;
+	background-color:#FFFFCC;
+}

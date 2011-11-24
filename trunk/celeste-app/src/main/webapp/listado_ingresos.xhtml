@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+			    xmlns:ui="http://java.sun.com/jsf/facelets"
+			    xmlns:h="http://java.sun.com/jsf/html"
+			    xmlns:f="http://java.sun.com/jsf/core"    
+			    template="./template/template_login.xhtml">
+    
+    <ui:define name="title">
+        Listado de Ingresos
+    </ui:define>
+    
+    <ui:define name="content">
+			<h:form id="listadoIngresosForm">
+				<h:dataTable value="#{receiptsBean.receiptsViewList}" var="row"   
+					headerClass="titulocolumna"
+					bgcolor="#CCCCC0" width="570" cellpadding="2" cellspacing="1" border="0" 			
+	    			rowClasses="columnadatoNon,columnadatoPar">
+	
+					<h:column>		
+						<f:facet name="header">
+							<h:commandLink action="#{receiptsBean.goAddReceipts}">					
+						 		<h:graphicImage value="resources/images/nuevo.gif" alt="Agregar Ingreso" />
+						 	</h:commandLink>	
+						 </f:facet>				
+					</h:column>
+					
+					<h:column>		
+						<f:facet name="header"> <h:outputText value="Fecha" styleClass="ligas" /></f:facet>		
+						#{row.date}
+					</h:column>
+				
+					<h:column>
+						<f:facet name="header"><h:outputText value="Importe" styleClass="ligas" /></f:facet>
+						#{row.amount}
+					</h:column>
+				
+					<h:column>
+						<f:facet name="header"><h:outputText value="Comentarios" styleClass="ligas" /></f:facet>
+						#{row.comments}
+					</h:column>
+				
+					<h:column>
+						<f:facet name="header"><h:outputText value="Casa" styleClass="ligas" /></f:facet>
+						#{row.condominiumsView.houseNumber}
+					</h:column>
+				
+				</h:dataTable>			
+			</h:form>			
+	</ui:define>
+    
+</ui:composition>
