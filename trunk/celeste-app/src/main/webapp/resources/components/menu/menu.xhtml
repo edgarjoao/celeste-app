@@ -9,7 +9,11 @@
     </composite:interface>
 	
 	<composite:implementation>	
-		<h:form id="menuForm">			
+		<h:form id="menuForm">
+		    <h:outputScript library="js" name="menu/milonic_src.js" target="body" />
+    		<h:outputScript library="js" name="menu/mmenudom.js" target="body" />
+    		<h:outputScript library="js" name="menu/menu_data.js" target="body" />    	
+			<h:outputScript library="js" name="menu/menu.js" target="body" />						
 			<div style="display: none;"><a href="http://www.milonic.com/beginner.php">http://www.milonic.com/beginner.php</a></div>
 			<table width="978" border="0" align="center" cellpadding="0" cellspacing="0">
 				<tr>
