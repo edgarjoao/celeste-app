@@ -14,5 +14,8 @@ public interface ExpensesDAO {
 	public List<ExpensesItemDTO> getExpensesItemList() throws ExpensesException;
 	
 	public List<SuppliersDTO> getSuppliersList() throws ExpensesException;
+
+	//public void insert SuppliersDTO() 
 		
+	
 }
