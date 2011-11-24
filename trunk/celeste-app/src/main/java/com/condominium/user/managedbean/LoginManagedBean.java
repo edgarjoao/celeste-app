@@ -7,7 +7,6 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
-import javax.faces.event.ActionEvent;
 import javax.servlet.http.HttpSession;
 
 import com.condominium.common.utils.JSFUtil;
@@ -23,9 +22,9 @@ public class LoginManagedBean implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1892423706846603202L;
-	private static final String VIEW_HOME = "home.xhtml";
+	private static final String VIEW_HOME = "home.jsf";
 
-	@ManagedProperty("#{userService}")
+	@ManagedProperty(value="#{userService}")
 	private UserService userService;
 	
 	private String username;
@@ -38,18 +37,13 @@ public class LoginManagedBean implements Serializable {
 			if(userView != null){
 				session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(true);
 				session.setAttribute("userView", userView);
-			}						
-		} catch (UserException userException) {
-			userException.printStackTrace();
+			}
+			JSFUtil.redirect(VIEW_HOME);
+		} catch (UserException userException) {			
 			JSFUtil.writeMessage(FacesMessage.SEVERITY_ERROR, "Usuario o Password incorrecto", "Login Error");
 		}		
 		return null;
-	}
-	
-	public void goHomeAction(ActionEvent actionEvent){
-		JSFUtil.redirect(VIEW_HOME);
-	}
-	
+	}	
 	
 	public String getUsername() {
 		return username;
