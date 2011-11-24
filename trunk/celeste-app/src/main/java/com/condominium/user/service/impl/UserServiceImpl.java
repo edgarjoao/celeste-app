@@ -13,7 +13,7 @@ import com.condominium.user.view.UserView;
  * @author Edgar Joao
  *
  */
-@Service
+@Service("userService")
 public class UserServiceImpl implements UserService {
 
 	@Autowired
