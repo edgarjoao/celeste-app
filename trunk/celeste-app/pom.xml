@@ -198,5 +198,17 @@
 				</plugins>
 			</build>
 		</profile>
+		<profile>
+			<id>pro</id>
+			<activation>
+				<activeByDefault>false</activeByDefault>
+			</activation>
+			<build>
+				<finalName>celeste-app</finalName>
+				<filters>
+					<filter>src/main/environments/pro.properties</filter>
+				</filters>
+			</build>
+		</profile>
 	</profiles>
 </project>
