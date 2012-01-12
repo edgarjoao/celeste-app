@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+			    xmlns:ui="http://java.sun.com/jsf/facelets"
+			    xmlns:h="http://java.sun.com/jsf/html"
+			    xmlns:f="http://java.sun.com/jsf/core"    
+			    template="./template/template_login.xhtml">
+    
+    <ui:define name="title">
+        Listado de Condominos
+    </ui:define>
+    
+    <ui:define name="content">
+			<h:form id="listadoCondominosForm">
+				<h:dataTable value="#{condominiumsBean.condominiumsList}" var="row"   
+					headerClass="titulocolumna"
+					bgcolor="#CCCCC0" width="570" cellpadding="2" cellspacing="1" border="0" 			
+	    			rowClasses="columnadatoNon,columnadatoPar">
+	
+					<h:column>		
+						<f:facet name="header">											
+						 	<h:graphicImage value="resources/images/nuevo.gif" alt="Agregar Condomino" style="border:0;" />		
+						 </f:facet>				
+					</h:column>
+					
+					<h:column>
+						<f:facet name="header"><h:outputText value="Casa" styleClass="ligas" /></f:facet>
+						#{row.houseNumber}
+					</h:column>
+					
+					<h:column>		
+						<f:facet name="header"> <h:outputText value="Nombre" styleClass="ligas" /></f:facet>		
+						#{row.userView.nombre} #{row.userView.apaterno} #{row.userView.amaterno}
+					</h:column>
+															
+					<h:column>		
+						<f:facet name="header"> <h:outputText value="Correo" styleClass="ligas" /></f:facet>		
+						#{row.userView.email}
+					</h:column>							
+					
+					<h:column>
+						<f:facet name="header"><h:outputText value="Tel. Casa" styleClass="ligas" /></f:facet>
+						#{row.userView.telCasa}
+					</h:column>					
+				
+					<h:column>
+						<f:facet name="header"><h:outputText value="Tel. Celular" styleClass="ligas" /></f:facet>
+						#{row.userView.telCelular}
+					</h:column>			
+				</h:dataTable>
+				<br />			
+			</h:form>			
+	</ui:define>
+    
+</ui:composition>

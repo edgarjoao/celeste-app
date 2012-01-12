@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<html xmlns="http://www.w3.org/1999/xhtml"   
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:composite="http://java.sun.com/jsf/composite">
+    
+    <composite:interface>        	
+    </composite:interface>
+	
+	<composite:implementation>
+		<h:outputScript library="js" name="ajax.js" target="head" />
+		<center>	
+			<table border="0 px">
+				<tr>	
+					<td>
+						<span class="ajaxResult" id="dateIndicator" style="display: none; font-size: 60%"> 
+							<h:graphicImage value="resources/images/ajax-loader.gif" />				
+						</span>
+					</td>
+				</tr>
+			</table>
+		</center>		
+	</composite:implementation>
+		
+</html>

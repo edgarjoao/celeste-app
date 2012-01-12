@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+			    xmlns:ui="http://java.sun.com/jsf/facelets"
+			    xmlns:h="http://java.sun.com/jsf/html"
+			    xmlns:f="http://java.sun.com/jsf/core"    
+			    template="./template/template_login.xhtml">
+    
+    <ui:define name="title">
+        Reporte Mensual
+    </ui:define>
+    
+    <ui:define name="content">
+			<h:form id="reporteMensualForm">				
+				<f:event listener="#{monthlyBean.fillDropDowns}" type="preRenderView" />							
+				<h:panelGrid  cellspacing="1" border="0" width="200 px;" 
+							  bgcolor="#CCCCC0" columns="4" columnClasses="etiqueta,etiqueta_campo,etiqueta,etiqueta_campo"							  
+							  headerClass="titulocolumna" footerClass="columnadatoPar">
+					
+					<f:facet name="header">
+						<h:outputText value="Reporte Mensual" />  
+					 </f:facet>								
+					
+					<h:outputText value="Mes:" />
+					<h:selectOneMenu id="mesId" value="#{monthlyBean.month}"  styleClass="campo_texto" >
+						<f:ajax render="@none" execute="@this" />
+                        <f:selectItem itemValue="1" itemLabel="Enero" />
+                        <f:selectItem itemValue="2" itemLabel="Febrero" />
+                        <f:selectItem itemValue="3" itemLabel="Marzo" />
+                        <f:selectItem itemValue="4" itemLabel="Abril" />
+                        <f:selectItem itemValue="5" itemLabel="Mayo" />
+                        <f:selectItem itemValue="6" itemLabel="Junio" />
+                        <f:selectItem itemValue="7" itemLabel="Julio" />
+                        <f:selectItem itemValue="8" itemLabel="Agosto" />
+                        <f:selectItem itemValue="9" itemLabel="Septiembre" />
+                        <f:selectItem itemValue="10" itemLabel="Octubre" />
+                        <f:selectItem itemValue="11" itemLabel="Noviembre" />
+                        <f:selectItem itemValue="12" itemLabel="Diciembre" />
+					</h:selectOneMenu>
+					
+					<h:outputText value="A&#241;o:" />
+					<h:selectOneMenu id="anioId" value="#{monthlyBean.year}"  styleClass="campo_texto" >
+						<f:ajax render="@none" execute="@this" />                        
+                        <f:selectItem itemValue="2010" itemLabel="2010" />
+                        <f:selectItem itemValue="2011" itemLabel="2011" />
+                        <f:selectItem itemValue="2012" itemLabel="2012" />
+                        <f:selectItem itemValue="2013" itemLabel="2013" />
+                        <f:selectItem itemValue="2014" itemLabel="2014" />
+                        <f:selectItem itemValue="2015" itemLabel="2015" />
+                        <f:selectItem itemValue="2016" itemLabel="2016" />
+                        <f:selectItem itemValue="2017" itemLabel="2017" />
+                        <f:selectItem itemValue="2018" itemLabel="2018" />
+                        <f:selectItem itemValue="2019" itemLabel="2019" />
+                        <f:selectItem itemValue="2020" itemLabel="2020" />
+					</h:selectOneMenu>	
+
+					
+					<f:facet name="footer">
+						<h:panelGroup style="text-align:right">		  
+						  <h:commandButton id="buscarId" styleClass="boton" value="Buscar" action="#{monthlyBean.searchAction}" />
+						</h:panelGroup>
+					 </f:facet>
+										
+				</h:panelGrid>
+				
+				<br />
+			 <h:panelGroup rendered="#{monthlyBean.showReport}">			 
+				<div style="width: 500px;">
+				 	
+				 	<table width="100%" align="center" cellpadding="2" cellspacing="1" border="0" bgcolor="#CCCCC0">
+				 		<tr class="columnadatoPar">
+				    		<td align="center"> #{monthlyBean.headerText} </td>				      		
+				    	</tr>
+			      		<tr>
+			        		<td align="left" class="titulocolumna">Ingresos</td>
+			        	</tr>
+			      	</table>			 				
+	 				 			
+	 				<table width="100%" align="center" cellpadding="2" cellspacing="1" border="0" bgcolor="#CCCCC0">
+		 				<ui:repeat var="row" value="#{monthlyBean.receiptsReportList}" varStatus="status">
+		 					<tr>
+								<td class="titulo_lista_interna" width="40%">#{row.monthName}</td>
+								<td class="titulo_lista_interna" width="40%">#{row.description}</td>
+								<td class="etiqueta_campo_right" width="20%">#{row.amount}</td>									
+							</tr>										 				
+		 				</ui:repeat>
+		 				<tr>
+		 					<td colspan="2" class="etiqueta_campo"> ACUMULADO DEL MES</td>
+		 					<td class="etiqueta_campo_right"> <h:outputLabel value="#{monthlyBean.partialTotal}" style="#{monthlyBean.partialTotalStyle lt 0 ? 'color: red;' : ''}" />  </td>
+		 				</tr>
+	 				</table>
+	 				<table width="100%" align="center" cellpadding="2" cellspacing="1" border="0" bgcolor="#CCCCC0">
+						<tr>
+							<td align="right" class="etiqueta" width="80%">Total Ingreso:</td>
+							<td class="etiqueta_campo_right" width="20%"> <h:outputLabel value="#{monthlyBean.ingresoTotal}" /> </td>
+						</tr>
+					</table>
+
+	 				<br />
+				 	<table width="100%" align="center" cellpadding="2" cellspacing="1" border="0" bgcolor="#CCCCC0">
+			      		<tr>
+			        		<td align="left" class="titulocolumna">Egresos</td>
+			        	</tr>
+			      	</table>			 				
+	 			
+	 				<table width="100%" align="center" cellpadding="2" cellspacing="1" border="0" bgcolor="#CCCCC0">
+		 				<ui:repeat var="row" value="#{monthlyBean.expensesReportList}" varStatus="status">
+		 					<tr>
+								<td class="titulo_lista_interna" width="80%" >#{row.description}</td>
+								<td class="etiqueta_campo_right" width="20%" >#{row.amount}</td>									
+							</tr>										 				
+		 				</ui:repeat>
+	 				</table>
+	 				<table width="100%" align="center" cellpadding="2" cellspacing="1" border="0" bgcolor="#CCCCC0">
+						<tr>
+							<td align="right" class="etiqueta" width="80%">Total Egreso:</td>
+							<td class="etiqueta_campo_right" width="20%"> <h:outputLabel value="#{monthlyBean.egresosTotal}" /> </td>
+						</tr>
+					</table>
+	 				
+	 				<br />
+	 			
+		 			<table width="100%" align="center" cellpadding="2" cellspacing="1" border="0" bgcolor="#CCCCC0">
+						<tr>
+							<td align="right" class="etiqueta" width="80%">TOTAL MES:</td>
+							<td class="etiqueta_campo_right" width="20%"> <h:outputLabel value="#{monthlyBean.total}" style="#{monthlyBean.totalStyle lt 0 ? 'color: red;' : ''}" /> </td>
+						</tr>
+					</table>
+					
+					<br />
+					
+					<table width="100%" align="center" cellpadding="2" cellspacing="1" border="0" bgcolor="#CCCCC0">
+				 		<tr class="columnadatoPar">
+				    		<td align="center">
+				    			<h:commandLink action="#{monthlyBean.pdfExportAction}">
+									<h:graphicImage value="resources/images/pdf.png" style="border: none;" alt="Exportar a PDF" />
+								</h:commandLink> 
+				    		</td>				      		
+				    	</tr>			
+			      	</table>										
+					
+					<br />						
+			 	</div>			 			 							 
+		      </h:panelGroup>
+				
+			</h:form>			
+	</ui:define>
+    
+</ui:composition>

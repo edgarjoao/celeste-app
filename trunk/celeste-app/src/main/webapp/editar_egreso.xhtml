@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+			    xmlns:ui="http://java.sun.com/jsf/facelets"
+			    xmlns:h="http://java.sun.com/jsf/html"
+			    xmlns:f="http://java.sun.com/jsf/core"    
+			    template="./template/template_login.xhtml">
+    
+    <ui:define name="title">
+        Registrar Egreso
+    </ui:define>
+    
+    <ui:define name="content">
+			
+    		<h:form id="editarEgresoForm">	    					
+				<h:panelGrid  cellspacing="1" border="0" 
+							  bgcolor="#CCCCC0" columns="2" columnClasses="etiqueta,etiqueta_campo"							  
+							  headerClass="titulocolumna" footerClass="columnadatoPar">
+					<f:event listener="#{expensesBean.validateExpensesForm}" type="postValidate" />
+					<f:facet name="header">
+						<h:outputText value="Editar egreso" />  
+					 </f:facet>		  							  																					
+																		
+					<h:outputText value="Importe:" />
+					<h:inputText id="importeId" styleClass="columnanumero" value="#{expensesBean.expensesEditView.amount}"  onfocus="this.select();" onkeydown="return (numeric(event, 1) &amp;&amp; noPaste(event, this));" onkeyup="extractNumber(this,2,false);" />
+					
+					<h:outputText value="Tipo de Egreso:" />					
+					<h:selectOneMenu id="egresoId" value="#{expensesBean.expensesEditView.expensesItemView.id}"  styleClass="campo_texto" >
+	  						<f:selectItems value="#{expensesBean.expensesItems}" />
+					</h:selectOneMenu>
+										
+					<h:outputText value="Proveedor:" />
+					<h:selectOneMenu id="proveedorId" value="#{expensesBean.expensesEditView.suppliersView.provId}"  styleClass="campo_texto" >
+	  						<f:selectItems value="#{expensesBean.suppliersList}" />
+					</h:selectOneMenu>
+					
+					<h:outputText value="Comentarios:" />					
+					<h:inputTextarea styleClass="campo_texto" value="#{expensesBean.expensesEditView.comments}"  onfocus="this.select();" cols="50" rows="10" />					
+					
+					<f:facet name="footer">
+					    <h:panelGroup style="text-align:right">
+					      <h:commandButton id="back" styleClass="boton" value="Regresar" action="#{expensesBean.backAction}" immediate="true" />&#160;&#160;
+					      <h:commandButton id="submit" styleClass="boton" value="Editar" action="#{expensesBean.editExpensesAction}" />
+					    </h:panelGroup>
+					 </f:facet>
+										
+				</h:panelGrid>
+				
+			</h:form>
+	</ui:define>
+    
+</ui:composition>
