@@ -204,7 +204,7 @@
 				<activeByDefault>false</activeByDefault>
 			</activation>
 			<build>
-				<finalName>celeste-app</finalName>
+				<finalName>ROOT</finalName>
 				<filters>
 					<filter>src/main/environments/pro.properties</filter>
 				</filters>
