@@ -11,6 +11,8 @@ import javax.faces.context.FacesContext;
 import javax.faces.event.ComponentSystemEvent;
 import javax.servlet.http.HttpSession;
 
+import org.apache.log4j.Logger;
+
 import com.condominium.common.utils.JSFUtil;
 import com.condominium.user.exception.UserException;
 import com.condominium.user.service.UserService;
@@ -23,6 +25,7 @@ public class LoginManagedBean implements Serializable {
 	/**
 	 * 
 	 */
+	private static final Logger log = Logger.getLogger(LoginManagedBean.class);
 	private static final long serialVersionUID = 1892423706846603202L;
 	private static final String VIEW_HOME = "home.jsf";
 	private static final String VIEW_OUT = "index.jsf";
@@ -44,7 +47,8 @@ public class LoginManagedBean implements Serializable {
 				this.userView = userView;
 			}
 			JSFUtil.redirect(VIEW_HOME);
-		} catch (UserException userException) {			
+		} catch (UserException userException) {
+			log.info(userException);
 			JSFUtil.writeMessage(FacesMessage.SEVERITY_ERROR, "Usuario o Password incorrecto", "Login Error");
 		}		
 		return null;

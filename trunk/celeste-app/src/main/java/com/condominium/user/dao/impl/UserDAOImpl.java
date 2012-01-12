@@ -3,6 +3,7 @@ package com.condominium.user.dao.impl;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import org.apache.log4j.Logger;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
@@ -18,6 +19,8 @@ import com.condominium.user.exception.UserException;
 @Repository
 public class UserDAOImpl extends GenericDAO implements UserDAO {
 
+	private static final Logger log = Logger.getLogger(UserDAOImpl.class);
+	
 	public UserDTO loginUser(String username, String password) throws UserException {
 		UserDTO userDTO = null;
 		try{
@@ -41,6 +44,7 @@ public class UserDAOImpl extends GenericDAO implements UserDAO {
 			});
 		}catch (Exception exception) {
 			UserException userException = new  UserException(exception, UserException.LAYER_DAO, UserException.ACTION_SELECT);
+			log.info(exception);
 			throw userException;
 		}
 		return userDTO;
@@ -51,6 +55,7 @@ public class UserDAOImpl extends GenericDAO implements UserDAO {
 			this.jdbcTemplate.update("INSERT INTO USUARIO () VALUES(?)", new Object[]{dto.getUsername()});
 		}catch(Exception exception){
 			UserException userException = new  UserException(exception, UserException.LAYER_DAO, UserException.ACTION_SELECT);
+			log.info(exception);
 			throw userException;
 		}			
 	}
