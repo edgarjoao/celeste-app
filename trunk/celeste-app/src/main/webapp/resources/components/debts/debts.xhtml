@@ -12,36 +12,33 @@
 	<composite:implementation>	
 		<h:form id="adeudosForm">
 			<f:event listener="#{condominiumsDebtsBean.fillDebtsTable}" type="preRenderView" />			
-			<div align="left" style="width: 450px;font-family: Arial, Helvetica, sans-serif;font-size: 12px;color:#003366;">				
+			<div align="left" style="width: 400px;font-family: Arial, Helvetica, sans-serif;font-size: 12px;color:#003366;">				
 			    #{condominiumsDebtsBean.debsHeader}				      					    	
 	      	</div>
 	      	<br />			
-			<div align="left" style="OVERFLOW: scroll; WIDTH: 450px; HEIGHT: 400px;">
+			<div align="left" style="OVERFLOW: scroll; WIDTH: 400px; HEIGHT: 400px;">
 				<table width="100%" align="center" cellpadding="2" cellspacing="1" border="0" bgcolor="#CCCCC0">						
 					<tr>
 		        		<td align="center" class="titulocolumna">Casa</td>
-		        		<td align="center" class="titulocolumna">Nombre</td>
 		        		<td align="center" class="titulocolumna">Descripcion</td>
 		        		<td align="center" class="titulocolumna">Monto</td>
 		        	</tr>						
 	 				<ui:repeat var="row" value="#{condominiumsDebtsBean.condominiumsList}" varStatus="status">		 				
 	 					<tr>
 							<td class="titulo_lista_interna">#{row.houseNumber}</td>
-							<td class="titulo_lista_interna">#{row.userView.nombre} #{row.userView.apaterno} #{row.userView.amaterno}</td>
 							<td class="titulo_lista_interna">#{row.debDescription}</td>
 							<td class="etiqueta_campo_right"><h:outputLabel value="#{row.debt}" style="#{row.debt eq '0.00' ? 'color: red;' : ''}" /> </td>															
 						</tr>										 				
 	 				</ui:repeat>
 	 				<tr>
-		        		<td align="center" class="titulocolumna">Casa</td>
-		        		<td align="center" class="titulocolumna">Nombre</td>
+		        		<td align="center" class="titulocolumna">Casa</td>		        
 		        		<td align="center" class="titulocolumna">Descripcion</td>
 		        		<td align="center" class="titulocolumna">Monto</td>
 		        	</tr>		 				
  				</table>
 			</div>
 			<div align="left">
-				<table width="450 px;" align="left" cellpadding="2" cellspacing="1" border="0" bgcolor="#CCCCC0">
+				<table width="400 px;" align="left" cellpadding="2" cellspacing="1" border="0" bgcolor="#CCCCC0">
 			 		<tr class="columnadatoPar">
 			    		<td align="center">
 			    			<h:commandLink action="#{condominiumsDebtsBean.pdfExportAction}">

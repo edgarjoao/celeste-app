@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.log4j.Logger;
 import org.springframework.dao.DataAccessException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.RowMapper;
@@ -27,6 +28,8 @@ import com.condominium.user.dto.UserDTO;
  */
 @Repository
 public class ReceiptsDAOImpl extends GenericDAO implements ReceiptsDAO {
+	
+	private static final Logger log = Logger.getLogger(ReceiptsDAOImpl.class);
 
 	public List<ReceiptsDTO> getReceiptsDTOList() throws ReceiptsException {
 		List<ReceiptsDTO> receiptsDTOList = null;
@@ -53,6 +56,7 @@ public class ReceiptsDAOImpl extends GenericDAO implements ReceiptsDAO {
 				}
 			});
 		}catch(Exception exception){
+			log.error(exception);
 			ReceiptsException receiptsException = new ReceiptsException(exception, ReceiptsException.LAYER_DAO, ReceiptsException.ACTION_SELECT);
 			throw receiptsException;
 		}		
@@ -72,6 +76,7 @@ public class ReceiptsDAOImpl extends GenericDAO implements ReceiptsDAO {
 				}
 			});
 		}catch (Exception exception) {
+			log.error(exception);
 			ReceiptsException receiptsException = new ReceiptsException(exception, ReceiptsException.LAYER_DAO, ReceiptsException.ACTION_SELECT);
 			throw receiptsException;
 		}
@@ -84,6 +89,7 @@ public class ReceiptsDAOImpl extends GenericDAO implements ReceiptsDAO {
 			this.jdbcTemplate.update("INSERT INTO INGRESOS (ING_FECHA_ALTA, ING_FECHA_INGRESO, ING_IMPORTE, ING_DESCUENTO, ING_COMENTARIOS, CATI_ID, COND_ID) VALUES (NOW(),?,?,?,?,?,?)", 
 								new Object[]{dto.getDate(), dto.getAmount(), dto.getDescount(), dto.getComments(), dto.getCatId(), dto.getCondId()});
 		}catch(DataAccessException exception){
+			log.error(exception);
 			ReceiptsException receiptsException = new ReceiptsException(exception, ReceiptsException.LAYER_DAO, ReceiptsException.ACTION_INSERT);
 			throw receiptsException;
 		}		
@@ -94,6 +100,7 @@ public class ReceiptsDAOImpl extends GenericDAO implements ReceiptsDAO {
 			this.jdbcTemplate.update("UPDATE INGRESOS set ING_FECHA_INGRESO = ?, ING_IMPORTE = ? , ING_DESCUENTO = ?, ING_COMENTARIOS = ?, CATI_ID = ?, COND_ID = ? WHERE ING_ID = ?", 
 								new Object[]{dto.getDate(), dto.getAmount(), dto.getDescount(), dto.getComments(), dto.getCatId(), dto.getCondId(), dto.getId()});
 		}catch(DataAccessException exception){
+			log.error(exception);
 			ReceiptsException receiptsException = new ReceiptsException(exception, ReceiptsException.LAYER_DAO, ReceiptsException.ACTION_UPDATE);
 			throw receiptsException;
 		}		
@@ -103,6 +110,7 @@ public class ReceiptsDAOImpl extends GenericDAO implements ReceiptsDAO {
 		try{
 			this.jdbcTemplate.update("DELETE FROM INGRESOS WHERE ING_ID = ?", new Object[]{id});
 		}catch(DataAccessException exception){
+			log.error(exception);
 			ReceiptsException receiptsException = new ReceiptsException(exception, ReceiptsException.LAYER_DAO, ReceiptsException.ACTION_DELETE);
 			throw receiptsException;
 		}	
@@ -112,6 +120,7 @@ public class ReceiptsDAOImpl extends GenericDAO implements ReceiptsDAO {
 		try{
 			this.jdbcTemplate.update("INSERT INTO CATALOGO_INGRESOS (CATI_DESCRIPCION) VALUES (?)", new Object[]{dto.getDescription()});
 		}catch(DataAccessException exception){
+			log.error(exception);
 			ReceiptsException receiptsException = new ReceiptsException(exception, ReceiptsException.LAYER_DAO, ReceiptsException.ACTION_INSERT);
 			throw receiptsException;
 		}	
@@ -121,6 +130,7 @@ public class ReceiptsDAOImpl extends GenericDAO implements ReceiptsDAO {
 		try{
 			this.jdbcTemplate.update("INSERT INTO CATALOGO_INGRESOS (CATI_DESCRIPCION) VALUES (?)", new Object[]{dto.getDescription()});
 		}catch(DataAccessException exception){
+			log.error(exception);
 			ReceiptsException receiptsException = new ReceiptsException(exception, ReceiptsException.LAYER_DAO, ReceiptsException.ACTION_UPDATE);
 			throw receiptsException;
 		}
@@ -130,6 +140,7 @@ public class ReceiptsDAOImpl extends GenericDAO implements ReceiptsDAO {
 		try{
 			this.jdbcTemplate.update("DELETE FROM CATALOGO_INGRESOS WHERE CATI_ID = ?", new Object[]{id});
 		}catch(DataAccessException exception){
+			log.error(exception);
 			ReceiptsException receiptsException = new ReceiptsException(exception, ReceiptsException.LAYER_DAO, ReceiptsException.ACTION_DELETE);
 			throw receiptsException;
 		}
@@ -196,6 +207,7 @@ public class ReceiptsDAOImpl extends GenericDAO implements ReceiptsDAO {
 				}
 			});
 		}catch(Exception exception){
+			log.error(exception);
 			ReceiptsException receiptsException = new ReceiptsException(exception, ReceiptsException.LAYER_DAO, ReceiptsException.ACTION_SELECT);
 			throw receiptsException;
 		}		
@@ -235,6 +247,7 @@ public class ReceiptsDAOImpl extends GenericDAO implements ReceiptsDAO {
 				}
 			});			
 		}catch(Exception exception){
+			log.error(exception);
 			ReceiptsException receiptsException = new ReceiptsException(exception, ReceiptsException.LAYER_DAO, ReceiptsException.ACTION_SELECT);
 			throw receiptsException;
 		}		
@@ -262,6 +275,7 @@ public class ReceiptsDAOImpl extends GenericDAO implements ReceiptsDAO {
 			//No se encontraron resultados
 			return 0;
 		}catch(Exception exception){
+			log.error(exception);
 			ReceiptsException receiptsException = new ReceiptsException(exception, ReceiptsException.LAYER_DAO, ReceiptsException.ACTION_SELECT);
 			throw receiptsException;
 		}		
@@ -293,6 +307,7 @@ public class ReceiptsDAOImpl extends GenericDAO implements ReceiptsDAO {
 				}
 			});			
 		}catch(Exception exception){
+			log.error(exception);
 			ReceiptsException receiptsException = new ReceiptsException(exception, ReceiptsException.LAYER_DAO, ReceiptsException.ACTION_SELECT);
 			throw receiptsException;
 		}		
@@ -331,6 +346,7 @@ public class ReceiptsDAOImpl extends GenericDAO implements ReceiptsDAO {
 				}
 			});			
 		}catch(DataAccessException exception){
+			log.error(exception);
 			ReceiptsException expensesException = new ReceiptsException(exception, ReceiptsException.LAYER_DAO, ReceiptsException.ACTION_SELECT);
 			throw expensesException;
 		}		
@@ -342,6 +358,7 @@ public class ReceiptsDAOImpl extends GenericDAO implements ReceiptsDAO {
 			this.jdbcTemplate.update("INSERT INTO TERRAZA (TER_DESCRIPCION, TER_FECHA, TER_STATUS, COND_ID) VALUES (?,?,?,?)", 
 						new Object[]{dto.getDescription(), dto.getDate(), dto.getStatus(), dto.getCondominiumsDTO().getCondominiumId()});
 		}catch(DataAccessException exception){
+			log.error(exception);
 			ReceiptsException receiptsException = new ReceiptsException(exception, ReceiptsException.LAYER_DAO, ReceiptsException.ACTION_INSERT);
 			throw receiptsException;
 		}		
@@ -351,6 +368,7 @@ public class ReceiptsDAOImpl extends GenericDAO implements ReceiptsDAO {
 		try{
 			this.jdbcTemplate.update("DELETE FROM TERRAZA WHERE TER_ID = ?", new Object[]{id});
 		}catch(DataAccessException exception){
+			log.error(exception);
 			ReceiptsException receiptsException = new ReceiptsException(exception, ReceiptsException.LAYER_DAO, ReceiptsException.ACTION_DELETE);
 			throw receiptsException;
 		}		
@@ -361,6 +379,7 @@ public class ReceiptsDAOImpl extends GenericDAO implements ReceiptsDAO {
 			this.jdbcTemplate.update("UPDATE TERRAZA SET TER_DESCRIPCION = ?, TER_FECHA = ?, TER_STATUS = ?, COND_ID = ? WHERE TER_ID = ?", 
 					new Object[]{dto.getDescription(), dto.getDate(), dto.getStatus(), dto.getCondominiumsDTO().getCondominiumId(), dto.getId()});
 		}catch(DataAccessException exception){
+			log.error(exception);
 			ReceiptsException receiptsException = new ReceiptsException(exception, ReceiptsException.LAYER_DAO, ReceiptsException.ACTION_UPDATE);
 			throw receiptsException;
 		}
@@ -389,6 +408,7 @@ public class ReceiptsDAOImpl extends GenericDAO implements ReceiptsDAO {
 				}
 			});		
 		}catch(DataAccessException exception){
+			log.error(exception);
 			ReceiptsException receiptsException = new ReceiptsException(exception, ReceiptsException.LAYER_DAO, ReceiptsException.ACTION_DELETE);
 			throw receiptsException;
 		}
@@ -403,6 +423,7 @@ public class ReceiptsDAOImpl extends GenericDAO implements ReceiptsDAO {
 				result = true;
 			}
 		}catch(DataAccessException exception){
+			log.error(exception);
 			ReceiptsException receiptsException = new ReceiptsException(exception, ReceiptsException.LAYER_DAO, ReceiptsException.ACTION_UPDATE);
 			throw receiptsException;
 		}

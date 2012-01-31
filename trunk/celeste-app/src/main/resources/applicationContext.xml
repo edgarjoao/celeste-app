@@ -28,5 +28,34 @@
     	<property name="username" value="${jdbc.username}"/>
     	<property name="password" value="${jdbc.password}"/>
     </bean>
+    
+    <bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl" scope="singleton">
+        <property name="host" value="${mail.host}"/>
+        <property name="port" value="${mail.port}"/>
+        <property name="username" value="${mail.username}"/>
+        <property name="password" value="${mail.password}"/>
+        <property name="defaultEncoding" value="UTF-8"/>
+        <property name="javaMailProperties">
+            <props>
+                <!-- Use SMTP transport protocol -->
+                <prop key="mail.transport.protocol">smtp</prop>
+                <!-- Use SMTP-AUTH to authenticate to SMTP server -->
+                <prop key="mail.smtp.auth">${mail.smtp.auth}</prop>
+                <!-- Use TLS to encrypt communication with SMTP server -->
+                <prop key="mail.smtp.starttls.enable">false</prop>
+                <prop key="mail.debug">${mail.debug.option}</prop>
+                <!--<prop key="mail.smtp.timeout">1500</prop>
+            --></props>
+        </property>
+    </bean>
+    
+    <bean id="alertMailMessage" class="org.springframework.mail.SimpleMailMessage" scope="singleton">
+        <property name="from">            
+            <value>${mail.username}</value>
+        </property>
+        <property name="to">            
+            <value>${mail.username}</value>
+        </property>
+    </bean> 
 	 
 </beans>

@@ -4,6 +4,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
+import org.apache.log4j.Logger;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
@@ -23,6 +24,7 @@ import com.condominium.expenses.exception.ExpensesException;
 @Repository
 public class ExpensesDAOImpl extends GenericDAO implements ExpensesDAO {
 
+	private static final Logger log = Logger.getLogger(ExpensesDAOImpl.class);
 	
 	public List<ExpensesItemDTO> getExpensesItemList() throws ExpensesException {		
 		List<ExpensesItemDTO> exItemDTOs = null;		
@@ -37,6 +39,7 @@ public class ExpensesDAOImpl extends GenericDAO implements ExpensesDAO {
 				}
 			});	
 		}catch(Exception exception){
+			log.error(exception);
 			ExpensesException expensesException = new ExpensesException(exception, ExpensesException.LAYER_DAO, ExpensesException.ACTION_SELECT);
 			throw expensesException;
 		}		
@@ -58,6 +61,7 @@ public class ExpensesDAOImpl extends GenericDAO implements ExpensesDAO {
 				}
 			});
 		}catch(Exception exception){
+			log.error(exception);
 			ExpensesException expensesException = new ExpensesException(exception, ExpensesException.LAYER_DAO, ExpensesException.ACTION_SELECT);
 			throw expensesException;
 		}		
@@ -90,6 +94,7 @@ public class ExpensesDAOImpl extends GenericDAO implements ExpensesDAO {
 				}
 			});
 		}catch(Exception exception){
+			log.error(exception);
 			ExpensesException expensesException = new ExpensesException(exception, ExpensesException.LAYER_DAO, ExpensesException.ACTION_SELECT);
 			throw expensesException;
 		}
@@ -102,6 +107,7 @@ public class ExpensesDAOImpl extends GenericDAO implements ExpensesDAO {
 			this.jdbcTemplate.update("INSERT INTO PROVEEDORES (PROV_NOMBRE, PROV_DOMICILIO, PROV_TEL_CASA, PROV_TEL_CELULAR) VALUES (?,?,?,?)", 
 								new Object[]{dto.getName(), dto.getAddress(), dto.getPhoneNumber(), dto.getCellPhoneNumber()});
 		}catch(DataAccessException exception){
+			log.error(exception);
 			ExpensesException expensesException = new ExpensesException(exception, ExpensesException.LAYER_DAO, ExpensesException.ACTION_INSERT);
 			throw expensesException;
 		}		
@@ -111,6 +117,7 @@ public class ExpensesDAOImpl extends GenericDAO implements ExpensesDAO {
 		try{
 			this.jdbcTemplate.update("INSERT INTO CATALOGO_EGRESOS (CATE_DESCRIPCION) VALUES (?)", new Object[]{dto.getDescription()});
 		}catch(DataAccessException exception){
+			log.error(exception);
 			ExpensesException expensesException = new ExpensesException(exception, ExpensesException.LAYER_DAO, ExpensesException.ACTION_INSERT);
 			throw expensesException;
 		}			
@@ -121,6 +128,7 @@ public class ExpensesDAOImpl extends GenericDAO implements ExpensesDAO {
 			this.jdbcTemplate.update("INSERT INTO EGRESOS (EGR_FECHA_EGRESO, EGR_IMPORTE, EGR_COMENTARIOS, CATE_ID, PROV_ID) VALUES (?,?,?,?,?)", 
 							new Object[]{dto.getDate(), dto.getAmount(), dto.getComments(), dto.getExpensesItemDTO().getId(), dto.getSuppliersDTO().getProvId()});
 		}catch(DataAccessException exception){
+			log.error(exception);
 			ExpensesException expensesException = new ExpensesException(exception, ExpensesException.LAYER_DAO, ExpensesException.ACTION_INSERT);
 			throw expensesException;
 		}
@@ -132,6 +140,7 @@ public class ExpensesDAOImpl extends GenericDAO implements ExpensesDAO {
 			this.jdbcTemplate.update("UPDATE PROVEEDORES SET PROV_NOMBRE = ?, PROV_DOMICILIO = ?, PROV_TEL_CASA = ?, PROV_TEL_CELULAR = ? WHERE PROV_ID = ?", 
 								new Object[]{dto.getName(), dto.getAddress(), dto.getPhoneNumber(), dto.getCellPhoneNumber(), dto.getProvId()});
 		}catch(DataAccessException exception){
+			log.error(exception);
 			ExpensesException expensesException = new ExpensesException(exception, ExpensesException.LAYER_DAO, ExpensesException.ACTION_UPDATE);
 			throw expensesException;
 		}			
@@ -141,6 +150,7 @@ public class ExpensesDAOImpl extends GenericDAO implements ExpensesDAO {
 		try{
 			this.jdbcTemplate.update("DELETE FROM PROVEEDORES WHERE PROV_ID = ?", new Object[]{id});
 		}catch(DataAccessException exception){
+			log.error(exception);
 			ExpensesException expensesException = new ExpensesException(exception, ExpensesException.LAYER_DAO, ExpensesException.ACTION_DELETE);
 			throw expensesException;
 		}	
@@ -205,6 +215,7 @@ public class ExpensesDAOImpl extends GenericDAO implements ExpensesDAO {
 				}
 			});
 		}catch(Exception exception){
+			log.error(exception);
 			ExpensesException expensesException = new ExpensesException(exception, ExpensesException.LAYER_DAO, ExpensesException.ACTION_SELECT);
 			throw expensesException;
 		}
@@ -218,6 +229,7 @@ public class ExpensesDAOImpl extends GenericDAO implements ExpensesDAO {
 								new Object[]{dto.getAmount(), dto.getComments(),dto.getExpensesItemDTO().getId(), dto.getSuppliersDTO().getProvId(), dto.getId()});
 		}catch(DataAccessException exception){
 			ExpensesException expensesException = new ExpensesException(exception, ExpensesException.LAYER_DAO, ExpensesException.ACTION_UPDATE);
+			log.error(exception);
 			throw expensesException;
 		}			
 	}
@@ -226,6 +238,7 @@ public class ExpensesDAOImpl extends GenericDAO implements ExpensesDAO {
 		try{
 			this.jdbcTemplate.update("DELETE FROM EGRESOS WHERE EGR_ID = ?", new Object[]{id});
 		}catch(DataAccessException exception){
+			log.error(exception);
 			ExpensesException expensesException = new ExpensesException(exception, ExpensesException.LAYER_DAO, ExpensesException.ACTION_UPDATE);
 			throw expensesException;
 		}					
@@ -249,6 +262,7 @@ public class ExpensesDAOImpl extends GenericDAO implements ExpensesDAO {
 				}
 			});			
 		}catch(DataAccessException exception){
+			log.error(exception);
 			ExpensesException expensesException = new ExpensesException(exception, ExpensesException.LAYER_DAO, ExpensesException.ACTION_SELECT);
 			throw expensesException;
 		}		

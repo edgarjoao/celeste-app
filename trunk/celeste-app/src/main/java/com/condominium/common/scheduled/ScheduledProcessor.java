@@ -1,11 +1,13 @@
 package com.condominium.common.scheduled;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 import com.condominium.cumulative.exception.CumulativeException;
 import com.condominium.cumulative.service.CumulativeService;
+import com.condominium.mail.MailService;
 /**
  * 
  * @author rioslore
@@ -14,8 +16,12 @@ import com.condominium.cumulative.service.CumulativeService;
 @Component("scheduleProcessor")
 public class ScheduledProcessor  {
 
+    private static final Logger log = Logger.getLogger(ScheduledProcessor.class);
+	
 	@Autowired
 	CumulativeService cumulativeService;
+	@Autowired
+	MailService mailService;
 	
 	/**
 	    1 Seconds (0-59)
@@ -33,13 +39,13 @@ public class ScheduledProcessor  {
 	@Scheduled(cron="* * * 1 * ?")
 	//@Scheduled(fixedDelay = 20 )
     public void cumulativeMonth(){
-        System.out.println("Works!");
+        log.info("El generador del acumulado se ha iniciado.");
         try {
 			cumulativeService.generateCumulativeMonth();
-			//enviar un correo si se genero correctamente
-		} catch (CumulativeException e) {
-			//enviar un correo si fallo
-			e.printStackTrace();
+			mailService.sendAlertMail("El acumulado del mes, se ha generado con Exito, favor de verificar en los logs del sistema.");
+		} catch (CumulativeException cumulativeException) {
+			log.error(cumulativeException);
+			mailService.sendErrorAlertMail(cumulativeException, "Ha ocurrido un error al generar el acumulado.");			
 		}        
     }
 }
