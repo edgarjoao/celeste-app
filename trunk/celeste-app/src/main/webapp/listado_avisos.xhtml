@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+			    xmlns:ui="http://java.sun.com/jsf/facelets"
+			    xmlns:h="http://java.sun.com/jsf/html"
+			    xmlns:f="http://java.sun.com/jsf/core"    
+			    template="./template/template_login.xhtml">
+    
+    <ui:define name="title">
+        Listado de Avisos
+    </ui:define>
+    
+    <ui:define name="content">    
+			<h:form id="listadoAvisosForm">
+				<f:event listener="#{noticesBean.fillList}" type="preRenderView" />
+				<br />
+				<h:dataTable value="#{noticesBean.noticesList}" var="row"   
+					headerClass="titulocolumna"
+					bgcolor="#CCCCC0" width="570" cellpadding="2" cellspacing="1" border="0" 			
+	    			rowClasses="columnadatoNon,columnadatoPar">
+	
+					<h:column>		
+						<f:facet name="header">
+							<h:commandLink action="#{noticesBean.goAddNotice}">					
+						 		<h:graphicImage value="resources/images/nuevo.gif" alt="Agregar Aviso" style="border:0;" />
+						 	</h:commandLink>						 	
+						 </f:facet>			
+						 	<h:commandLink action="#{noticesBean.goEditNotice}">	
+						 		<f:param name="id" value="#{row.id}" />	
+						 		<h:graphicImage value="resources/images/modificar.gif" alt="Modificar Aviso" style="border:0;" />						 							 	
+						 	</h:commandLink>
+						 	:
+						 	<h:commandLink action="#{noticesBean.deleteNoticesAction}" onclick="return confirm('Eliminar Aviso?');">	
+						 		<f:param name="id" value="#{row.id}" />	
+						 		<h:graphicImage value="resources/images/eliminar.jpg" alt="Eliminar Aviso" style="border:0;" />						 							 	
+						 	</h:commandLink>						 				
+					</h:column>
+					
+					<h:column>
+						<f:facet name="header"><h:outputText value="Fecha Aviso" styleClass="ligas" /></f:facet>
+						#{row.date}
+					</h:column>
+					
+					<h:column>		
+						<f:facet name="header"> <h:outputText value="Detalle" styleClass="ligas" /></f:facet>		
+						#{row.detail}
+					</h:column>
+															
+					<h:column>		
+						<f:facet name="header"> <h:outputText value="Tipo Aviso" styleClass="ligas" /></f:facet>		
+						#{row.typeNoticeDescription}
+					</h:column>							
+														
+				</h:dataTable>
+				<br />			
+			</h:form>			
+	</ui:define>
+    
+</ui:composition>

@@ -15,7 +15,8 @@ with(milonic=new menuname("Main Menu")){
 with(milonic=new menuname("catalogs")){
 	style=menuStyle;				
 		aI("text=Condominos;url=listado_condominos.jsf;");							
-		aI("text=Proveedores;url=listado_proveedores.jsf;");										
+		aI("text=Proveedores;url=listado_proveedores.jsf;");
+		aI("text=Avisos;url=listado_avisos.jsf;");
 }		 	   
 with(milonic=new menuname("receipts")){
 	style=menuStyle;									

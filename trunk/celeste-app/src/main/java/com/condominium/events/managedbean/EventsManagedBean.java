@@ -27,6 +27,11 @@ import com.condominium.user.exception.UserException;
 @ViewScoped
 public class EventsManagedBean implements Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 23952653035269593L;
+	
 	@ManagedProperty(value="#{receiptsService}")
 	private ReceiptsService receiptsService;
 	@ManagedProperty(value="#{condominiumsService}")

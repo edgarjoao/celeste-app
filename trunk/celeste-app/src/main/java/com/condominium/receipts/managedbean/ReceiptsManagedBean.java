@@ -62,6 +62,19 @@ public class ReceiptsManagedBean implements Serializable {
 		return "registrar_ingreso";
 	}
 	
+	public String goAddAndNewReceipts(){
+		try{
+			receiptsView.setDate(TimeUtils.fillDate(receiptMonth, receiptYear));
+			receiptsService.insertReceipt(receiptsView);
+			JSFUtil.writeMessage(FacesMessage.SEVERITY_INFO, "El ingreso se ha guardado satisfactoriamente", "Error de Ingresos");			
+			this.clean();
+		} catch (ReceiptsException e) {			
+			JSFUtil.writeMessage(FacesMessage.SEVERITY_ERROR, e.getMessage(), "Error de Ingresos");
+			return null;
+		}
+		return "registrar_ingreso";
+	}
+	
 	public String backAction(){
 		this.clean();
 		return "listado_ingresos";

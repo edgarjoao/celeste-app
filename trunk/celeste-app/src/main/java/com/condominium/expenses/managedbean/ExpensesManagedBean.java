@@ -117,6 +117,18 @@ public class ExpensesManagedBean implements Serializable {
 		return "registrar_egreso";
 	}
 	
+	public String addAndNewExpensesAction(){
+		try{
+			this.expensesService.addExpenses(expensesView);
+			this.clean();
+			JSFUtil.writeMessage(FacesMessage.SEVERITY_INFO, "El egreso se ha registrado correctamente.", "El egreso se ha registrado correctamente.");
+		} catch (ExpensesException e) {
+			JSFUtil.writeMessage(FacesMessage.SEVERITY_ERROR, e.getMessage(), e.getExceptionCode());
+			return null;
+		}	
+		return "registrar_egreso";
+	}
+	
 	public String backAction(){
 		this.clean();
 		return "listado_egresos";

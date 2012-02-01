@@ -3,20 +3,27 @@
 			    xmlns:ui="http://java.sun.com/jsf/facelets"
 			    xmlns:h="http://java.sun.com/jsf/html"
 			    xmlns:f="http://java.sun.com/jsf/core"
-			    xmlns:debts="http://java.sun.com/jsf/composite/components/debts"    			    
+			    xmlns:debts="http://java.sun.com/jsf/composite/components/debts"
+			    xmlns:avisos="http://java.sun.com/jsf/composite/components/avisos"    			    
 			    template="./template/template_login.xhtml">
     
     <ui:define name="title">
         Inicio
     </ui:define>
     
-    <ui:define name="content">			
-			<h:panelGrid border="0" width="600 px;" columns="2">
-				<debts:debts />
-				<h:panelGroup>
-					TABLA DE AVISOS
-				</h:panelGroup>
-			</h:panelGrid>		
+    <ui:define name="content">						
+			<table border="0" width="600 px;">
+				<tr>
+					<td>
+						<debts:debts />
+					</td>
+					<td valign="top">
+						<h4>AVISOS</h4>
+						<avisos:avisos />
+					</td>
+				</tr>
+			</table>
+					
 	</ui:define>
     
 </ui:composition>
