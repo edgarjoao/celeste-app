@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+			    xmlns:ui="http://java.sun.com/jsf/facelets"
+			    xmlns:h="http://java.sun.com/jsf/html"
+			    xmlns:f="http://java.sun.com/jsf/core"    
+			    template="./template/template_login.xhtml">
+    
+    <ui:define name="title">
+        Listado de Condominos
+    </ui:define>
+    
+    <ui:define name="content">
+			<h:form id="listadoProveedoresForm">
+				<f:event listener="#{suppliersBean.populateTable}" type="preRenderView" />
+				<h:dataTable value="#{suppliersBean.suppliersList}" var="row"   
+					headerClass="titulocolumna"
+					bgcolor="#CCCCC0" width="570" cellpadding="2" cellspacing="1" border="0" 			
+	    			rowClasses="columnadatoNon,columnadatoPar">
+	
+					<h:column>		
+						<f:facet name="header">
+							<h:commandLink action="#{suppliersBean.goAddSupplier}">					
+						 		<h:graphicImage value="resources/images/nuevo.gif" alt="Agregar Proveedor" style="border:0;" />
+						 	</h:commandLink>						 	
+						 </f:facet>			
+						 	<h:commandLink action="#{suppliersBean.goEditSupplier}">	
+						 		<f:param name="provId" value="#{row.provId}" />	
+						 		<h:graphicImage value="resources/images/modificar.gif" alt="Modificar Proveedor" style="border:0;" />						 							 	
+						 	</h:commandLink>				
+					</h:column>
+					
+					<h:column>		
+						<f:facet name="header"> <h:outputText value="Nombre" styleClass="ligas" /></f:facet>		
+						#{row.name}
+					</h:column>
+															
+					<h:column>		
+						<f:facet name="header"> <h:outputText value="Direccion" styleClass="ligas" /></f:facet>		
+						#{row.address}
+					</h:column>
+				
+					<h:column>
+						<f:facet name="header"><h:outputText value="Tel. Casa" styleClass="ligas" /></f:facet>
+						#{row.phoneNumber}
+					</h:column>
+					
+					<h:column>
+						<f:facet name="header"><h:outputText value="Tel. Celular" styleClass="ligas" /></f:facet>
+						#{row.cellPhoneNumber}
+					</h:column>			
+					
+					<!-- <h:column>
+						<f:facet name="header">
+						</f:facet>
+							<h:commandLink action="#{suppliersBean.deleteSupplierAction}" onclick="return confirm('¿Eliminar Proveedor?');">	
+						 		<f:param name="provId" value="#{row.provId}" />	
+						 		<h:graphicImage value="resources/images/eliminar.jpg" alt="Eliminar Proveedor" style="border:0;" />						 							 	
+						 	</h:commandLink>	
+					</h:column>	 -->				
+				
+				</h:dataTable>			
+			</h:form>			
+	</ui:define>
+    
+</ui:composition>
