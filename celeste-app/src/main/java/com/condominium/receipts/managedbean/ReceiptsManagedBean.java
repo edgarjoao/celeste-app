@@ -66,6 +66,7 @@ public class ReceiptsManagedBean implements Serializable {
 	public String goAddAndNewReceipts(){
 		try{
 			receiptsView.setDate(TimeUtils.fillDate(receiptMonth, receiptYear));
+			receiptsView.setUserId(JSFUtil.getSessionAttribute(UserView.class, "userView").getUserId());
 			receiptsService.insertReceipt(receiptsView);
 			JSFUtil.writeMessage(FacesMessage.SEVERITY_INFO, "El ingreso se ha guardado satisfactoriamente", "Error de Ingresos");			
 			this.clean();
