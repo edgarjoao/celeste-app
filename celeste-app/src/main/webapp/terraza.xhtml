@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+			    xmlns:ui="http://java.sun.com/jsf/facelets"
+			    xmlns:h="http://java.sun.com/jsf/html"
+			    xmlns:f="http://java.sun.com/jsf/core"
+			    xmlns:eventos="http://java.sun.com/jsf/composite/components/eventos"    			    
+			    template="./template/template_login.xhtml">
+    
+    <ui:define name="title">
+        Calendario Coto Celeste
+    </ui:define>
+    
+    <ui:define name="content">			
+				
+		<h:form id="terrazaForm">							
+			<f:event listener="#{reservationBean.fillCalendar}" type="preRenderView" />			
+			<h:panelGrid  cellspacing="1" border="0" 
+							  bgcolor="#CCCCC0" columns="4" columnClasses="etiqueta,etiqueta_campo,etiqueta,etiqueta_campo"							  
+							  headerClass="titulocolumna" footerClass="columnadatoPar">
+					
+					<f:facet name="header">
+						<h:outputText value="Buscar Horarios" />  
+				    </f:facet>			
+					
+					<h:outputText value="Mes:" />									
+					<h:selectOneMenu id="mesId" value="#{reservationBean.month}" styleClass="campo_texto" >						
+						<f:ajax render="@none" execute="@this" />						
+                        <f:selectItem itemValue="1" itemLabel="Enero" />
+                        <f:selectItem itemValue="2" itemLabel="Febrero" />
+                        <f:selectItem itemValue="3" itemLabel="Marzo" />
+                        <f:selectItem itemValue="4" itemLabel="Abril" />
+                        <f:selectItem itemValue="5" itemLabel="Mayo" />
+                        <f:selectItem itemValue="6" itemLabel="Junio" />
+                        <f:selectItem itemValue="7" itemLabel="Julio" />
+                        <f:selectItem itemValue="8" itemLabel="Agosto" />
+                        <f:selectItem itemValue="9" itemLabel="Septiembre" />
+                        <f:selectItem itemValue="10" itemLabel="Octubre" />
+                        <f:selectItem itemValue="11" itemLabel="Noviembre" />
+                        <f:selectItem itemValue="12" itemLabel="Diciembre" />
+					</h:selectOneMenu>
+					
+					<h:outputText value="A&#241;o:" />
+					<h:selectOneMenu id="anioId" value="#{reservationBean.year}"  styleClass="campo_texto" >
+						<f:ajax render="@none" execute="@this" />                        
+                        <f:selectItem itemValue="2010" itemLabel="2010" />
+                        <f:selectItem itemValue="2011" itemLabel="2011" />
+                        <f:selectItem itemValue="2012" itemLabel="2012" />
+                        <f:selectItem itemValue="2013" itemLabel="2013" />
+                        <f:selectItem itemValue="2014" itemLabel="2014" />
+                        <f:selectItem itemValue="2015" itemLabel="2015" />
+                        <f:selectItem itemValue="2016" itemLabel="2016" />
+                        <f:selectItem itemValue="2017" itemLabel="2017" />
+                        <f:selectItem itemValue="2018" itemLabel="2018" />
+                        <f:selectItem itemValue="2019" itemLabel="2019" />
+                        <f:selectItem itemValue="2020" itemLabel="2020" />
+					</h:selectOneMenu>
+					
+					<f:facet name="footer">
+						<div align="right">
+							<h:commandButton styleClass="boton" value="Buscar" action="#{reservationBean.searchDateAction}" >
+								<f:ajax execute="@form" render="htmlCalendarId" />
+							</h:commandButton>
+						</div>
+					</f:facet>  
+			</h:panelGrid>																	
+			<br /> 
+			<br />						
+			<h:outputText id="htmlCalendarId" value="#{reservationBean.htmlCalendar}" escape="false" />
+																																
+		</h:form>			
+	</ui:define>    
+</ui:composition>

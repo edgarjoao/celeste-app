@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"   
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:composite="http://java.sun.com/jsf/composite">
+    
+    <composite:interface>        	
+    </composite:interface>
+	
+	<composite:implementation>	
+		<h:form id="adeudosForm">
+			<f:event listener="#{condominiumsDebtsBean.fillDebtsTable}" type="preRenderView" />			
+			<div align="left" style="width: 250px;font-family: Arial, Helvetica, sans-serif;font-size: 12px;color:#003366;">				
+			    #{condominiumsDebtsBean.debsHeader}				      					    	
+	      	</div>
+	      	<br />			
+			<div align="left" style="OVERFLOW: scroll; WIDTH: 250px; HEIGHT: 400px;">
+				<table width="100%" align="center" cellpadding="2" cellspacing="1" border="0" bgcolor="#CCCCC0">						
+					<tr>
+		        		<td align="center" class="titulocolumna">Casa</td>
+		        		<td align="center" class="titulocolumna">Descripcion</td>
+		        		<td align="center" class="titulocolumna">Monto</td>
+		        	</tr>						
+	 				<ui:repeat var="row" value="#{condominiumsDebtsBean.condominiumsList}" varStatus="status">		 				
+	 					<tr>
+							<td class="titulo_lista_interna">#{row.houseNumber}</td>
+							<td class="titulo_lista_interna">#{row.debDescription}</td>
+							<td class="etiqueta_campo_right"><h:outputLabel value="#{row.debt}" style="#{row.debt eq '0.00' ? 'color: red;' : ''}" /> </td>															
+						</tr>										 				
+	 				</ui:repeat>
+	 				<tr>
+		        		<td align="center" class="titulocolumna">Casa</td>		        
+		        		<td align="center" class="titulocolumna">Descripcion</td>
+		        		<td align="center" class="titulocolumna">Monto</td>
+		        	</tr>		 				
+ 				</table>
+			</div>
+			<div align="left">
+				<table width="250 px;" align="left" cellpadding="2" cellspacing="1" border="0" bgcolor="#CCCCC0">
+			 		<tr class="columnadatoPar">
+			    		<td align="center">
+			    			<h:commandLink action="#{condominiumsDebtsBean.pdfExportAction}">
+								<h:graphicImage value="resources/images/pdf.png" style="border: none;" alt="Exportar a PDF" title="Exportar a PDF" />
+							</h:commandLink> 
+			    		</td>				      		
+			    	</tr>			
+		      	</table>
+	      	</div>
+	      	<br />
+	      	<br />
+		</h:form>		
+	</composite:implementation>
+	
+</html>
