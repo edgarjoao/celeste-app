@@ -42,6 +42,11 @@
 		<param-value>/WEB-INF/classes/applicationContext.xml</param-value>
 	</context-param>
 	
+	<context-param>
+        <param-name>javax.faces.FACELETS_LIBRARIES</param-name>
+        <param-value>/WEB-INF/classes/security.taglib.xml</param-value>
+	</context-param>
+	
 	<error-page>
 		<error-code>500</error-code>
 		<location>/error.xhtml</location>
