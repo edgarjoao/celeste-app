@@ -1,0 +1,426 @@
+SELECT U.USR_USERNAME, P.PER_DESCRIPCION, P.PER_DESC, TP.TP_DESC FROM PERMISO_USUARIO PU
+INNER JOIN USUARIO U ON U.USR_ID = PU.USR_ID
+INNER JOIN PERMISO P ON P.PER_ID = PU.PER_ID
+INNER JOIN TIPO_PERMISO TP ON TP.TP_ID = P.TP_ID
+
+
+
+
+
+INSERT INTO `TIPO_PERMISO` VALUES(1, 'Permiso Condominos', 'CONDOMINOS');
+INSERT INTO `TIPO_PERMISO` VALUES(2, 'Permiso Ingresos', 'INGRESOS');
+INSERT INTO `TIPO_PERMISO` VALUES(3, 'Permiso Egresos', 'EGRESOS');
+INSERT INTO `TIPO_PERMISO` VALUES(4, 'Permiso Terraza', 'TERRAZA');
+INSERT INTO `TIPO_PERMISO` VALUES(5, 'Permiso Reporte General', 'REPORTEG');
+INSERT INTO `TIPO_PERMISO` VALUES(6, 'Permiso Usuarios', 'USUARIOS');
+
+
+INSERT INTO `PERMISO` VALUES(1, 'Permiso Eliminar Condominos', 'DEL', 1);
+INSERT INTO `PERMISO` VALUES(2, 'Permiso Agregar Condomino', 'ADD', 1);
+INSERT INTO `PERMISO` VALUES(3, 'Permiso Editar Cond—mino', 'EDT', 1);
+INSERT INTO `PERMISO` VALUES(4, 'Permiso Agregar Ingreso', 'ADD', 2);
+INSERT INTO `PERMISO` VALUES(5, 'Permiso Editar Ingreso', 'EDT', 2);
+INSERT INTO `PERMISO` VALUES(6, 'Permiso Eliminar Ingreso', 'DEL', 2);
+INSERT INTO `PERMISO` VALUES(7, 'Permiso Agregar Egreso', 'ADD', 3);
+INSERT INTO `PERMISO` VALUES(8, 'Permiso Editar Egreso', 'EDT', 3);
+INSERT INTO `PERMISO` VALUES(9, 'Permiso Eliminar Egreso', 'DEL', 3);
+INSERT INTO `PERMISO` VALUES(10, 'Permiso Agregar Evento', 'ADD', 4);
+INSERT INTO `PERMISO` VALUES(11, 'Permiso Editar Evento', 'EDT', 4);
+INSERT INTO `PERMISO` VALUES(12, 'Permiso Eliminar Evento Terraza', 'DEL', 4);
+INSERT INTO `PERMISO` VALUES(13, 'Permiso Modulo Cond—minos', 'MOD', 1);
+INSERT INTO `PERMISO` VALUES(14, 'Permiso M—dulo Ingresos', 'MOD', 2);
+INSERT INTO `PERMISO` VALUES(15, 'Permiso M—dulo Egresos', 'MOD', 3);
+INSERT INTO `PERMISO` VALUES(16, 'Permiso M—dulo Terraza', 'MOD', 4);
+
+
+INSERT INTO `PERMISO_USUARIO` VALUES(1, 4, '2012-02-02 20:19:40');
+INSERT INTO `PERMISO_USUARIO` VALUES(1, 5, '2012-02-02 20:20:21');
+INSERT INTO `PERMISO_USUARIO` VALUES(1, 6, '2012-02-02 20:20:24');
+INSERT INTO `PERMISO_USUARIO` VALUES(1, 7, '2012-02-02 20:20:29');
+INSERT INTO `PERMISO_USUARIO` VALUES(1, 8, '2012-02-02 20:20:33');
+INSERT INTO `PERMISO_USUARIO` VALUES(1, 9, '2012-02-02 20:20:36');
+INSERT INTO `PERMISO_USUARIO` VALUES(1, 10, '2012-02-02 20:20:39');
+INSERT INTO `PERMISO_USUARIO` VALUES(1, 11, '2012-02-02 20:20:51');
+INSERT INTO `PERMISO_USUARIO` VALUES(1, 12, '2012-02-02 20:20:53');
+INSERT INTO `PERMISO_USUARIO` VALUES(1, 13, '2012-02-02 20:20:56');
+INSERT INTO `PERMISO_USUARIO` VALUES(1, 14, '2012-02-02 20:20:58');
+INSERT INTO `PERMISO_USUARIO` VALUES(1, 15, '2012-02-02 20:21:00');
+INSERT INTO `PERMISO_USUARIO` VALUES(1, 16, '2012-02-02 20:21:02');
+
+
+
+
+
+
+
+
+
+-- phpMyAdmin SQL Dump
+-- version 3.3.9.2
+-- http://www.phpmyadmin.net
+--
+-- Host: localhost
+-- Generation Time: Feb 02, 2012 at 08:32 PM
+-- Server version: 5.5.9
+-- PHP Version: 5.3.6
+
+SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
+
+--
+-- Database: `condominio`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `ACUMULADO`
+--
+
+CREATE TABLE `ACUMULADO` (
+  `AC_ID` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `AC_MES` int(10) unsigned NOT NULL DEFAULT '0',
+  `AC_ANIO` varchar(45) NOT NULL DEFAULT '',
+  `AC_MONTO` decimal(18,2) NOT NULL DEFAULT '0.00',
+  PRIMARY KEY (`AC_ID`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `AVISOS`
+--
+
+CREATE TABLE `AVISOS` (
+  `AV_ID` int(10) NOT NULL AUTO_INCREMENT,
+  `AV_FECHA` datetime DEFAULT NULL,
+  `AV_TITULO` varchar(100) DEFAULT NULL,
+  `AV_DETALLE` varchar(500) DEFAULT NULL,
+  `TA_ID` int(10) NOT NULL,
+  PRIMARY KEY (`AV_ID`),
+  KEY `fk_AVISOS_TIPO_AVISO` (`TA_ID`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `CATALOGO_EGRESOS`
+--
+
+CREATE TABLE `CATALOGO_EGRESOS` (
+  `CATE_ID` int(10) NOT NULL AUTO_INCREMENT,
+  `CATE_DESCRIPCION` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`CATE_ID`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=18 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `CATALOGO_INGRESOS`
+--
+
+CREATE TABLE `CATALOGO_INGRESOS` (
+  `CATI_ID` int(10) NOT NULL AUTO_INCREMENT,
+  `CATI_DESCRIPCION` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`CATI_ID`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `CONDOMINIO`
+--
+
+CREATE TABLE `CONDOMINIO` (
+  `CON_ID` int(10) NOT NULL AUTO_INCREMENT,
+  `CON_NOMBRE` varchar(45) DEFAULT NULL,
+  `CON_DOMICILIO` varchar(45) DEFAULT NULL,
+  `CON_TEL_CASA` int(10) DEFAULT NULL,
+  `CON_TEL_CELULAR` int(10) DEFAULT NULL,
+  `CON_EMAIL` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`CON_ID`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `CONDOMINOS`
+--
+
+CREATE TABLE `CONDOMINOS` (
+  `COND_ID` int(10) NOT NULL AUTO_INCREMENT,
+  `COND_NUM_CASA` int(5) DEFAULT NULL,
+  `CON_ID` int(10) NOT NULL,
+  `USR_ID` int(10) NOT NULL,
+  `TC_ID` int(10) NOT NULL,
+  PRIMARY KEY (`COND_ID`),
+  KEY `fk_CONDOMINOS_CONDOMINIO` (`CON_ID`),
+  KEY `fk_CONDOMINOS_USUARIO` (`USR_ID`),
+  KEY `fk_CONDOMINOS_TIPO_CONDOMINO` (`TC_ID`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=92 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `EGRESOS`
+--
+
+CREATE TABLE `EGRESOS` (
+  `EGR_ID` int(10) NOT NULL AUTO_INCREMENT,
+  `EGR_FECHA_EGRESO` date DEFAULT NULL,
+  `EGR_IMPORTE` decimal(18,2) DEFAULT NULL,
+  `EGR_COMENTARIOS` varchar(200) DEFAULT NULL,
+  `CATE_ID` int(10) NOT NULL,
+  `PROV_ID` int(10) DEFAULT NULL,
+  `USR_ID` int(10) DEFAULT NULL,
+  PRIMARY KEY (`EGR_ID`),
+  KEY `fk_EGRESOS_CATALOGO` (`CATE_ID`),
+  KEY `fk_EGRESOS_PROVEEDORES` (`PROV_ID`),
+  KEY `fk_EGRESOS_USUARIO` (`USR_ID`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=66 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `INGRESOS`
+--
+
+CREATE TABLE `INGRESOS` (
+  `ING_ID` int(10) NOT NULL AUTO_INCREMENT,
+  `ING_FECHA_ALTA` date DEFAULT NULL,
+  `ING_FECHA_INGRESO` date DEFAULT NULL,
+  `ING_IMPORTE` decimal(18,2) DEFAULT NULL,
+  `ING_DESCUENTO` decimal(18,2) DEFAULT NULL,
+  `ING_COMENTARIOS` varchar(200) DEFAULT NULL,
+  `CATI_ID` int(10) NOT NULL,
+  `COND_ID` int(10) NOT NULL,
+  `USR_ID` int(10) DEFAULT NULL,
+  PRIMARY KEY (`ING_ID`),
+  KEY `fk_INGRESOS_CATALOGO` (`CATI_ID`),
+  KEY `fk_INGRESOS_CONDOMINOS` (`COND_ID`),
+  KEY `fk_INGRESOS_USUARIO` (`USR_ID`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=259 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `LOG_SISTEMA`
+--
+
+CREATE TABLE `LOG_SISTEMA` (
+  `LOG_ID` int(11) NOT NULL AUTO_INCREMENT,
+  `LOG_FECHA` datetime DEFAULT NULL,
+  `LOG_NOMBRE_USUARIO` varchar(100) DEFAULT NULL,
+  `LOG_STATUS` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`LOG_ID`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=225 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `PERMISO`
+--
+
+CREATE TABLE `PERMISO` (
+  `PER_ID` int(10) NOT NULL AUTO_INCREMENT,
+  `PER_DESCRIPCION` varchar(100) DEFAULT NULL,
+  `PER_DESC` varchar(20) DEFAULT NULL,
+  `TP_ID` int(10) DEFAULT NULL,
+  PRIMARY KEY (`PER_ID`),
+  KEY `fk_PERMISO_TIPO_PERMISO` (`TP_ID`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=17 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `PERMISO_USUARIO`
+--
+
+CREATE TABLE `PERMISO_USUARIO` (
+  `USR_ID` int(10) NOT NULL,
+  `PER_ID` int(10) NOT NULL,
+  `PU_FECHA` datetime DEFAULT NULL,
+  PRIMARY KEY (`USR_ID`,`PER_ID`),
+  KEY `fk_UP_USUARIO` (`USR_ID`),
+  KEY `fk_UP_PERMISO` (`PER_ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `PROVEEDORES`
+--
+
+CREATE TABLE `PROVEEDORES` (
+  `PROV_ID` int(10) NOT NULL AUTO_INCREMENT,
+  `PROV_NOMBRE` varchar(45) DEFAULT NULL,
+  `PROV_DOMICILIO` varchar(45) DEFAULT NULL,
+  `PROV_TEL_CASA` varchar(20) DEFAULT NULL,
+  `PROV_TEL_CELULAR` varchar(20) DEFAULT NULL,
+  PRIMARY KEY (`PROV_ID`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=14 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `ROL`
+--
+
+CREATE TABLE `ROL` (
+  `ROL_ID` int(10) NOT NULL AUTO_INCREMENT,
+  `ROL_DESCRIPCION` varchar(15) DEFAULT NULL,
+  PRIMARY KEY (`ROL_ID`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `TERRAZA`
+--
+
+CREATE TABLE `TERRAZA` (
+  `TER_ID` int(10) NOT NULL AUTO_INCREMENT,
+  `TER_DESCRIPCION` varchar(45) DEFAULT NULL,
+  `TER_FECHA` datetime DEFAULT NULL,
+  `TER_STATUS` varchar(1) DEFAULT NULL COMMENT 'El estatus es \nR - Reservado\nP - Pagado',
+  `COND_ID` int(10) NOT NULL,
+  PRIMARY KEY (`TER_ID`),
+  KEY `fk_TERRAZA_TERRAZA1` (`COND_ID`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `TIPO_AVISO`
+--
+
+CREATE TABLE `TIPO_AVISO` (
+  `TA_ID` int(10) NOT NULL AUTO_INCREMENT,
+  `TA_TIPO_AVISO` varchar(20) DEFAULT NULL,
+  PRIMARY KEY (`TA_ID`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `TIPO_CONDOMINO`
+--
+
+CREATE TABLE `TIPO_CONDOMINO` (
+  `TC_ID` int(10) NOT NULL AUTO_INCREMENT,
+  `TC_DESCRIPCION` varchar(20) DEFAULT NULL COMMENT 'El tipo de Condomino se refiere si es Propietario o Arrendatario',
+  PRIMARY KEY (`TC_ID`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `TIPO_PERMISO`
+--
+
+CREATE TABLE `TIPO_PERMISO` (
+  `TP_ID` int(10) NOT NULL AUTO_INCREMENT,
+  `TP_DESCRIPCION` varchar(100) DEFAULT NULL,
+  `TP_DESC` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`TP_ID`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `USUARIO`
+--
+
+CREATE TABLE `USUARIO` (
+  `USR_ID` int(10) NOT NULL AUTO_INCREMENT,
+  `USR_USERNAME` varchar(10) DEFAULT NULL,
+  `USR_PASSWORD` varchar(10) DEFAULT NULL,
+  `USR_NOMBRE` varchar(45) DEFAULT NULL,
+  `USR_APATERNO` varchar(45) DEFAULT NULL,
+  `USR_AMATERNO` varchar(45) DEFAULT NULL,
+  `USR_TEL_CASA` int(11) DEFAULT NULL,
+  `USR_TEL_CELULAR` int(11) DEFAULT NULL,
+  `USR_EMAIL` varchar(45) DEFAULT NULL,
+  `ROL_ID` int(10) NOT NULL,
+  PRIMARY KEY (`USR_ID`),
+  KEY `fk_USUARIO_ROL` (`ROL_ID`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=93 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `VEHICULOS`
+--
+
+CREATE TABLE `VEHICULOS` (
+  `VE_ID` int(10) NOT NULL,
+  `VE_DESCRIPCION` varchar(45) DEFAULT NULL,
+  `VE_MODELO` varchar(45) DEFAULT NULL,
+  `VE_PLACAS` varchar(45) DEFAULT NULL,
+  `COND_ID` int(10) DEFAULT NULL,
+  PRIMARY KEY (`VE_ID`),
+  KEY `fk_VEHICULOS_CONDOMINOS1` (`COND_ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `AVISOS`
+--
+ALTER TABLE `AVISOS`
+  ADD CONSTRAINT `fk_AVISOS_TIPO_AVISO` FOREIGN KEY (`TA_ID`) REFERENCES `TIPO_AVISO` (`TA_ID`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
+-- Constraints for table `CONDOMINOS`
+--
+ALTER TABLE `CONDOMINOS`
+  ADD CONSTRAINT `fk_CONDOMINOS_CONDOMINIO` FOREIGN KEY (`CON_ID`) REFERENCES `CONDOMINIO` (`CON_ID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_CONDOMINOS_TIPO_CONDOMINO` FOREIGN KEY (`TC_ID`) REFERENCES `TIPO_CONDOMINO` (`TC_ID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_CONDOMINOS_USUARIO` FOREIGN KEY (`USR_ID`) REFERENCES `USUARIO` (`USR_ID`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
+-- Constraints for table `EGRESOS`
+--
+ALTER TABLE `EGRESOS`
+  ADD CONSTRAINT `fk_EGRESOS_CATALOGO` FOREIGN KEY (`CATE_ID`) REFERENCES `CATALOGO_EGRESOS` (`CATE_ID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_EGRESOS_PROVEEDORES` FOREIGN KEY (`PROV_ID`) REFERENCES `PROVEEDORES` (`PROV_ID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_EGRESOS_USUARIO` FOREIGN KEY (`USR_ID`) REFERENCES `USUARIO` (`USR_ID`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
+-- Constraints for table `INGRESOS`
+--
+ALTER TABLE `INGRESOS`
+  ADD CONSTRAINT `fk_INGRESOS_CONDOMINOS` FOREIGN KEY (`COND_ID`) REFERENCES `CONDOMINOS` (`COND_ID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_INGRESOS_USUARIO` FOREIGN KEY (`USR_ID`) REFERENCES `USUARIO` (`USR_ID`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
+-- Constraints for table `PERMISO`
+--
+ALTER TABLE `PERMISO`
+  ADD CONSTRAINT `fk_PERMISO_TIPO_PERMISO` FOREIGN KEY (`TP_ID`) REFERENCES `TIPO_PERMISO` (`TP_ID`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
+-- Constraints for table `PERMISO_USUARIO`
+--
+ALTER TABLE `PERMISO_USUARIO`
+  ADD CONSTRAINT `fk_UP_USUARIO` FOREIGN KEY (`USR_ID`) REFERENCES `USUARIO` (`USR_ID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_UP_PERMISO` FOREIGN KEY (`PER_ID`) REFERENCES `PERMISO` (`PER_ID`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
+-- Constraints for table `TERRAZA`
+--
+ALTER TABLE `TERRAZA`
+  ADD CONSTRAINT `fk_TERRAZA_TERRAZA1` FOREIGN KEY (`COND_ID`) REFERENCES `CONDOMINOS` (`COND_ID`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
+-- Constraints for table `USUARIO`
+--
+ALTER TABLE `USUARIO`
+  ADD CONSTRAINT `fk_USUARIO_ROL` FOREIGN KEY (`ROL_ID`) REFERENCES `ROL` (`ROL_ID`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
+-- Constraints for table `VEHICULOS`
+--
+ALTER TABLE `VEHICULOS`
+  ADD CONSTRAINT `fk_VEHICULOS_CONDOMINOS1` FOREIGN KEY (`COND_ID`) REFERENCES `CONDOMINOS` (`COND_ID`) ON DELETE NO ACTION ON UPDATE NO ACTION;
