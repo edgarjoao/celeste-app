@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"   
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:ajax="http://java.sun.com/jsf/composite/components/ajax"
       xmlns:composite="http://java.sun.com/jsf/composite">
     
     <composite:interface>        	
@@ -11,31 +11,82 @@
 	
 	<composite:implementation>	
 		<h:form id="adeudosForm">
-			<f:event listener="#{condominiumsDebtsBean.fillDebtsTable}" type="preRenderView" />			
+					
 			<div align="left" style="width: 250px;font-family: Arial, Helvetica, sans-serif;font-size: 12px;color:#003366;">				
-			    #{condominiumsDebtsBean.debsHeader}				      					    	
+				<h:panelGrid  cellspacing="1" border="0" width="100%" 
+							  bgcolor="#CCCCC0" columns="4" columnClasses="etiqueta,etiqueta_campo,etiqueta,etiqueta_campo"							  
+							  headerClass="titulocolumna" footerClass="columnadatoPar">
+				<f:event listener="#{condominiumsDebtsBean.fillDebtsTable}" type="preRenderView" />											
+				<f:facet name="header">
+					<h:outputText id="headerId" value="#{condominiumsDebtsBean.debsHeader}" />					
+				</f:facet>	
+				
+			    <h:outputText value="Mes:" />
+					<h:selectOneMenu id="mesId" value="#{condominiumsDebtsBean.month}"  styleClass="campo_texto" >
+						<f:ajax render="@none" execute="@this" />
+                        <f:selectItem itemValue="1" itemLabel="Enero" />
+                        <f:selectItem itemValue="2" itemLabel="Febrero" />
+                        <f:selectItem itemValue="3" itemLabel="Marzo" />
+                        <f:selectItem itemValue="4" itemLabel="Abril" />
+                        <f:selectItem itemValue="5" itemLabel="Mayo" />
+                        <f:selectItem itemValue="6" itemLabel="Junio" />
+                        <f:selectItem itemValue="7" itemLabel="Julio" />
+                        <f:selectItem itemValue="8" itemLabel="Agosto" />
+                        <f:selectItem itemValue="9" itemLabel="Septiembre" />
+                        <f:selectItem itemValue="10" itemLabel="Octubre" />
+                        <f:selectItem itemValue="11" itemLabel="Noviembre" />
+                        <f:selectItem itemValue="12" itemLabel="Diciembre" />
+					</h:selectOneMenu>
+					
+					<h:outputText value="A&#241;o:" />
+					<h:selectOneMenu id="anioId" value="#{condominiumsDebtsBean.year}"  styleClass="campo_texto" >
+						<f:ajax render="@none" execute="@this" />                        
+                        <f:selectItem itemValue="2010" itemLabel="2010" />
+                        <f:selectItem itemValue="2011" itemLabel="2011" />
+                        <f:selectItem itemValue="2012" itemLabel="2012" />
+                        <f:selectItem itemValue="2013" itemLabel="2013" />
+                        <f:selectItem itemValue="2014" itemLabel="2014" />
+                        <f:selectItem itemValue="2015" itemLabel="2015" />
+                        <f:selectItem itemValue="2016" itemLabel="2016" />
+                        <f:selectItem itemValue="2017" itemLabel="2017" />
+                        <f:selectItem itemValue="2018" itemLabel="2018" />
+                        <f:selectItem itemValue="2019" itemLabel="2019" />
+                        <f:selectItem itemValue="2020" itemLabel="2020" />
+					</h:selectOneMenu>					
+					
+					<f:facet name="footer">
+						<h:panelGroup style="text-align:right">		  
+							<h:commandButton id="buscarId" styleClass="boton" value="Buscar" action="#{condominiumsDebtsBean.searchDebtsAction}">
+								<f:ajax render="headerId addeudosId anioId mesId" execute="@this" onevent="showDateIndicator" />
+							</h:commandButton>		
+						</h:panelGroup>
+					 </f:facet>
+					
+				</h:panelGrid>	    			    			    			      					
 	      	</div>
-	      	<br />			
+	      	<ajax:ajax />	      	
 			<div align="left" style="OVERFLOW: scroll; WIDTH: 250px; HEIGHT: 400px;">
-				<table width="100%" align="center" cellpadding="2" cellspacing="1" border="0" bgcolor="#CCCCC0">						
-					<tr>
-		        		<td align="center" class="titulocolumna">Casa</td>
-		        		<td align="center" class="titulocolumna">Descripcion</td>
-		        		<td align="center" class="titulocolumna">Monto</td>
-		        	</tr>						
-	 				<ui:repeat var="row" value="#{condominiumsDebtsBean.condominiumsList}" varStatus="status">		 				
-	 					<tr>
-							<td class="titulo_lista_interna">#{row.houseNumber}</td>
-							<td class="titulo_lista_interna">#{row.debDescription}</td>
-							<td class="etiqueta_campo_right"><h:outputLabel value="#{row.debt}" style="#{row.debt eq '0.00' ? 'color: red;' : ''}" /> </td>															
-						</tr>										 				
-	 				</ui:repeat>
-	 				<tr>
-		        		<td align="center" class="titulocolumna">Casa</td>		        
-		        		<td align="center" class="titulocolumna">Descripcion</td>
-		        		<td align="center" class="titulocolumna">Monto</td>
-		        	</tr>		 				
- 				</table>
+				<h:panelGroup id="addeudosId">
+					<table width="100%" align="center" cellpadding="2" cellspacing="1" border="0" bgcolor="#CCCCC0">						
+						<tr>
+			        		<td align="center" class="titulocolumna">Casa</td>
+			        		<td align="center" class="titulocolumna">Descripcion</td>
+			        		<td align="center" class="titulocolumna">Monto</td>
+			        	</tr>						
+		 				<ui:repeat var="row" value="#{condominiumsDebtsBean.condominiumsList}" varStatus="status">		 				
+		 					<tr>
+								<td class="titulo_lista_interna">#{row.houseNumber}</td>
+								<td class="titulo_lista_interna">#{row.debDescription}</td>
+								<td class="etiqueta_campo_right"><h:outputLabel value="#{row.debt}" style="#{row.debt eq '0.00' ? 'color: red;' : ''}" /> </td>															
+							</tr>										 				
+		 				</ui:repeat>
+		 				<tr>
+			        		<td align="center" class="titulocolumna">Casa</td>		        
+			        		<td align="center" class="titulocolumna">Descripcion</td>
+			        		<td align="center" class="titulocolumna">Monto</td>
+			        	</tr>		 				
+	 				</table>
+ 				</h:panelGroup>
 			</div>
 			<div align="left">
 				<table width="250 px;" align="left" cellpadding="2" cellspacing="1" border="0" bgcolor="#CCCCC0">
@@ -52,5 +103,4 @@
 	      	<br />
 		</h:form>		
 	</composite:implementation>
-	
 </html>

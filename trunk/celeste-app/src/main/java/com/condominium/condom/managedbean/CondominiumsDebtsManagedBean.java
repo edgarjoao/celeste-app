@@ -28,7 +28,11 @@ import com.itextpdf.text.Phrase;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
-
+/**
+ * Managed Bean para el listado de los adeudos.
+ * @author joao
+ *
+ */
 @ManagedBean(name="condominiumsDebtsBean")
 @ViewScoped
 public class CondominiumsDebtsManagedBean implements Serializable {
@@ -42,19 +46,38 @@ public class CondominiumsDebtsManagedBean implements Serializable {
 	private ReceiptsService receiptsService;
 	private List<CondominiumsView> condominiumsList;
 	private String debsHeader;
+	private String year;
+	private String month;
 	
 	public void fillDebtsTable(ComponentSystemEvent event){
-		Calendar cal = Calendar.getInstance();
+		if(condominiumsList == null ){			
+			Calendar cal = Calendar.getInstance();
+			StringBuilder title = new StringBuilder(0);
+			try {
+				//Se obtiene el mes y anio actual para llenar la tabla de adeudos del mes.
+				condominiumsList = receiptsService.getDebtsOfTheMonth(cal.get(Calendar.MONTH) + 1, cal.get(Calendar.YEAR));
+				title.append(StringUtils.capitalize(StringUtils.getMonth(cal.get(Calendar.MONTH) + 1))).append(" ");
+				title.append(cal.get(Calendar.YEAR));
+				debsHeader = title.toString();
+				this.month = String.valueOf(cal.get(Calendar.MONTH) + 1);
+				this.year = String.valueOf(cal.get(Calendar.YEAR));
+			} catch (ReceiptsException e) {			
+				JSFUtil.writeMessage(FacesMessage.SEVERITY_ERROR, e.getErrorCode(), e.getErrorCode());
+			}			
+		}
+	}
+	
+	public String searchDebtsAction(){
 		StringBuilder title = new StringBuilder(0);
-		try {
-			//Se obtiene el mes y anio actual para llenar la tabla de adeudos del mes.
-			condominiumsList = receiptsService.getDebtsOfTheMonth(cal.get(Calendar.MONTH) + 1, cal.get(Calendar.YEAR));
-			title.append(StringUtils.capitalize(StringUtils.getMonth(cal.get(Calendar.MONTH) + 1))).append(" ");
-			title.append(cal.get(Calendar.YEAR));
+		try{
+			condominiumsList = receiptsService.getDebtsOfTheMonth(Integer.parseInt(month), Integer.parseInt(year));
+			title.append(StringUtils.capitalize(StringUtils.getMonth(Integer.parseInt(month)))).append(" ");
+			title.append(year);
 			debsHeader = title.toString();
 		} catch (ReceiptsException e) {			
 			JSFUtil.writeMessage(FacesMessage.SEVERITY_ERROR, e.getErrorCode(), e.getErrorCode());
 		}
+		return null;
 	}
 	
 	public void pdfExportAction(){
@@ -137,5 +160,22 @@ public class CondominiumsDebtsManagedBean implements Serializable {
 
 	public void setDebsHeader(String debsHeader) {
 		this.debsHeader = debsHeader;
-	}		
+	}
+
+	public String getYear() {
+		return year;
+	}
+
+	public void setYear(String year) {
+		this.year = year;
+	}
+
+	public String getMonth() {
+		return month;
+	}
+
+	public void setMonth(String month) {
+		this.month = month;
+	}
+	
 }
