@@ -2,7 +2,8 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
 			    xmlns:ui="http://java.sun.com/jsf/facelets"
 			    xmlns:h="http://java.sun.com/jsf/html"
-			    xmlns:f="http://java.sun.com/jsf/core"    
+			    xmlns:f="http://java.sun.com/jsf/core"  
+			    xmlns:sec="http://www.condominioceleste.com/security/facelets/tags"  
 			    template="./template/template_login.xhtml">
     
     <ui:define name="title">
@@ -20,19 +21,25 @@
 	
 					<h:column>		
 						<f:facet name="header">
+							<sec:submodulo modulo="AVISOS" submodulo="ADD">
 							<h:commandLink action="#{noticesBean.goAddNotice}">					
 						 		<h:graphicImage value="resources/images/nuevo.gif" alt="Agregar Aviso" style="border:0;" />
-						 	</h:commandLink>						 	
-						 </f:facet>			
-						 	<h:commandLink action="#{noticesBean.goEditNotice}">	
-						 		<f:param name="id" value="#{row.id}" />	
-						 		<h:graphicImage value="resources/images/modificar.gif" alt="Modificar Aviso" style="border:0;" />						 							 	
 						 	</h:commandLink>
+						 	</sec:submodulo>						 	
+						 </f:facet>
+						 	<sec:submodulo modulo="AVISOS" submodulo="EDT">			
+						 		<h:commandLink action="#{noticesBean.goEditNotice}">	
+						 			<f:param name="id" value="#{row.id}" />	
+						 			<h:graphicImage value="resources/images/modificar.gif" alt="Modificar Aviso" style="border:0;" />						 							 	
+						 		</h:commandLink>
+						 	</sec:submodulo>
 						 	:
+						 	<sec:submodulo modulo="AVISOS" submodulo="DEL">
 						 	<h:commandLink action="#{noticesBean.deleteNoticesAction}" onclick="return confirm('Eliminar Aviso?');">	
 						 		<f:param name="id" value="#{row.id}" />	
 						 		<h:graphicImage value="resources/images/eliminar.jpg" alt="Eliminar Aviso" style="border:0;" />						 							 	
-						 	</h:commandLink>						 				
+						 	</h:commandLink>
+						 	</sec:submodulo>						 				
 					</h:column>
 					
 					<h:column>

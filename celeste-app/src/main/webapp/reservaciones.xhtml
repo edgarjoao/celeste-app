@@ -3,7 +3,8 @@
 			    xmlns:ui="http://java.sun.com/jsf/facelets"
 			    xmlns:h="http://java.sun.com/jsf/html"
 			    xmlns:f="http://java.sun.com/jsf/core"
-			    xmlns:eventos="http://java.sun.com/jsf/composite/components/eventos"    			    
+			    xmlns:eventos="http://java.sun.com/jsf/composite/components/eventos"
+			    xmlns:sec="http://www.condominioceleste.com/security/facelets/tags"    			    
 			    template="./template/template_login.xhtml">
     
     <ui:define name="title">
@@ -120,7 +121,9 @@
 								<h:inputTextarea styleClass="campo_texto" value="#{eventsBean.description}" onfocus="this.select();" cols="50" rows="10" />
 								 
 								<f:facet name="footer">
-									<h:commandButton styleClass="boton" value="Reservar" action="#{eventsBean.addReservationAction}" />&#160;&#160;
+									<sec:submodulo modulo="TERRAZA" submodulo="ADD">
+										<h:commandButton styleClass="boton" value="Reservar" action="#{eventsBean.addReservationAction}" />&#160;&#160;
+									</sec:submodulo>
 									<h:commandButton styleClass="boton" value="Cancelar" action="#{eventsBean.cancelAction}" />
 								</f:facet>
 							</h:panelGrid>
@@ -157,8 +160,12 @@
 								<h:inputTextarea styleClass="campo_texto" value="#{eventsBean.editEventsView.description}" onfocus="this.select();" cols="50" rows="10" />
 								 
 								<f:facet name="footer">
-									<h:commandButton styleClass="boton" value="Modificar" action="#{eventsBean.editReservationAction}" />&#160;&#160;
-									<h:commandButton styleClass="boton" value="Eliminar" action="#{eventsBean.deleteReservationAction}" />&#160;&#160;
+									<sec:submodulo modulo="TERRAZA" submodulo="EDT">
+										<h:commandButton styleClass="boton" value="Modificar" action="#{eventsBean.editReservationAction}" />&#160;&#160;
+									</sec:submodulo>
+									<sec:submodulo modulo="TERRAZA" submodulo="DEL">
+										<h:commandButton styleClass="boton" value="Eliminar" action="#{eventsBean.deleteReservationAction}" />&#160;&#160;
+									</sec:submodulo>
 									<h:commandButton styleClass="boton" value="Cancelar" action="#{eventsBean.cancelAction}" />
 								</f:facet>
 							</h:panelGrid>

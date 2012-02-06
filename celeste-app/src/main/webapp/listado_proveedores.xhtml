@@ -2,7 +2,8 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
 			    xmlns:ui="http://java.sun.com/jsf/facelets"
 			    xmlns:h="http://java.sun.com/jsf/html"
-			    xmlns:f="http://java.sun.com/jsf/core"    
+			    xmlns:f="http://java.sun.com/jsf/core"
+			    xmlns:sec="http://www.condominioceleste.com/security/facelets/tags"    
 			    template="./template/template_login.xhtml">
     
     <ui:define name="title">
@@ -19,14 +20,18 @@
 	
 					<h:column>		
 						<f:facet name="header">
-							<h:commandLink action="#{suppliersBean.goAddSupplier}">					
-						 		<h:graphicImage value="resources/images/nuevo.gif" alt="Agregar Proveedor" style="border:0;" />
-						 	</h:commandLink>						 	
-						 </f:facet>			
-						 	<h:commandLink action="#{suppliersBean.goEditSupplier}">	
-						 		<f:param name="provId" value="#{row.provId}" />	
-						 		<h:graphicImage value="resources/images/modificar.gif" alt="Modificar Proveedor" style="border:0;" />						 							 	
-						 	</h:commandLink>				
+							<sec:submodulo modulo="PROVEEDORES" submodulo="ADD">
+								<h:commandLink action="#{suppliersBean.goAddSupplier}">					
+						 			<h:graphicImage value="resources/images/nuevo.gif" alt="Agregar Proveedor" style="border:0;" />
+						 		</h:commandLink>
+						 	</sec:submodulo>						 	
+						 </f:facet>	
+						 	<sec:submodulo modulo="PROVEEDORES" submodulo="EDT">		
+						 		<h:commandLink action="#{suppliersBean.goEditSupplier}">	
+						 			<f:param name="provId" value="#{row.provId}" />	
+						 			<h:graphicImage value="resources/images/modificar.gif" alt="Modificar Proveedor" style="border:0;" />						 							 	
+						 		</h:commandLink>
+						 	</sec:submodulo>				
 					</h:column>
 					
 					<h:column>		
