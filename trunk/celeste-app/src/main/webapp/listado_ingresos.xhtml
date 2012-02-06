@@ -2,7 +2,8 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
 			    xmlns:ui="http://java.sun.com/jsf/facelets"
 			    xmlns:h="http://java.sun.com/jsf/html"
-			    xmlns:f="http://java.sun.com/jsf/core"    
+			    xmlns:f="http://java.sun.com/jsf/core"
+			    xmlns:sec="http://www.condominioceleste.com/security/facelets/tags"    
 			    template="./template/template_login.xhtml">
     
     <ui:define name="title">
@@ -21,11 +22,12 @@
 					<f:facet name="header">
 						<h:outputText value="Listado de Ingresos" />  
 					 </f:facet>
-					
-					<h:outputText value="Agregar Ingreso:" /> 
-					<h:commandLink action="#{receiptsBean.goAddReceipts}">					
+					<sec:submodulo modulo="INGRESOS" submodulo="ADD">
+						<h:outputText value="Agregar Ingreso:" /> 
+						<h:commandLink action="#{receiptsBean.goAddReceipts}">					
 						 		<h:graphicImage value="resources/images/nuevo.gif" alt="Agregar Ingreso" style="border:0;" />
-					</h:commandLink>		  							  																					
+						</h:commandLink>
+					</sec:submodulo>		  							  																					
 					
 					<h:outputText value="Condomino" />					
 					<h:selectOneMenu id="condominoId" value="#{receiptsBean.condominiumsId}"  styleClass="campo_texto" >
@@ -83,22 +85,26 @@
 				
 				<br />
 							
-				<h:dataTable value="#{receiptsBean.receiptsViewList}" var="row"  rendered="#{receiptsBean.showTable}" 
+				<h:dataTable value="#{receiptsBean.receiptsViewList}" var="row" rendered="#{receiptsBean.showTable}" 
 					headerClass="titulocolumna" footerClass="columnadatoPar"
 					bgcolor="#CCCCC0" width="650" cellpadding="2" cellspacing="1" border="0" 			
 	    			rowClasses="columnadatoNon,columnadatoPar">
 	
 					<h:column>		
 						<f:facet name="header"></f:facet>
-						 	<h:commandLink action="#{receiptsBean.deleteReceiptsAction}" onclick="return confirm('Eliminar Ingreso?');">	
-						 		<f:param name="id" value="#{row.id}" />	
-						 		<h:graphicImage value="resources/images/eliminar.jpg" alt="Eliminar Ingreso" style="border:0;" />						 							 	
-						 	</h:commandLink>
+							<sec:submodulo modulo="INGRESOS" submodulo="DEL">
+						 		<h:commandLink action="#{receiptsBean.deleteReceiptsAction}" onclick="return confirm('Eliminar Ingreso?');">	
+						 			<f:param name="id" value="#{row.id}" />	
+						 			<h:graphicImage value="resources/images/eliminar.jpg" alt="Eliminar Ingreso" style="border:0;" />						 							 	
+						 		</h:commandLink>
+						 	</sec:submodulo>
 						 	:
-						 	<h:commandLink action="#{receiptsBean.goEditReceipts}">	
-						 		<f:param name="receiptId" value="#{row.id}" />	
-						 		<h:graphicImage value="resources/images/modificar.gif" alt="Modificar Ingreso" style="border:0;" />						 							 	
-						 	</h:commandLink>					
+						 	<sec:submodulo modulo="INGRESOS" submodulo="EDT">
+						 		<h:commandLink action="#{receiptsBean.goEditReceipts}">	
+						 			<f:param name="receiptId" value="#{row.id}" />	
+						 			<h:graphicImage value="resources/images/modificar.gif" alt="Modificar Ingreso" style="border:0;" />						 							 	
+						 		</h:commandLink>
+						 	</sec:submodulo>					
 					</h:column>
 					
 					<h:column>		

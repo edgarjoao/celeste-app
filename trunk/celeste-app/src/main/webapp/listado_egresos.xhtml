@@ -2,7 +2,8 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
 			    xmlns:ui="http://java.sun.com/jsf/facelets"
 			    xmlns:h="http://java.sun.com/jsf/html"
-			    xmlns:f="http://java.sun.com/jsf/core"    
+			    xmlns:f="http://java.sun.com/jsf/core"
+			    xmlns:sec="http://www.condominioceleste.com/security/facelets/tags"    
 			    template="./template/template_login.xhtml">
     
     <ui:define name="title">
@@ -19,11 +20,12 @@
 					<f:facet name="header">
 						<h:outputText value="Listado de Egresos" />  
 					 </f:facet>	
-					
+					<sec:submodulo modulo="EGRESOS" submodulo="ADD">
 					<h:outputText value="Agregar Egreso:" /> 
 			 		<h:commandLink action="#{expensesBean.goAddExpenses}">					
 				 		<h:graphicImage value="resources/images/nuevo.gif" alt="Agregar Egreso" style="border:0;" />
-				 	</h:commandLink>	  							  																					
+				 	</h:commandLink>
+				 	</sec:submodulo>	  							  																					
 																		
 					<h:outputText value="Proveedor:" />
 					<h:selectOneMenu id="proveedorId" value="#{expensesBean.expensesSearchProvier}"  styleClass="campo_texto" >
@@ -85,15 +87,19 @@
 	
 					<h:column>		
 						<f:facet name="header"></f:facet>
+						<sec:submodulo modulo="EGRESOS" submodulo="EDT">
 						<h:commandLink action="#{expensesBean.goEditExpensesAction}">	
 					 		<f:param name="expensesId" value="#{row.id}" />	
 					 		<h:graphicImage value="resources/images/modificar.gif" alt="Modificar Egreso" style="border:0;" />						 							 	
 					 	</h:commandLink>
+					 	</sec:submodulo>
 					 	:
+					 	<sec:submodulo modulo="EGRESOS" submodulo="DEL">
 					 	<h:commandLink action="#{expensesBean.deleteExpensesAction}" onclick="return confirm('¿Eliminar Egreso?');">	
 					 		<f:param name="expensesId" value="#{row.id}" />	
 					 		<h:graphicImage value="resources/images/eliminar.jpg" alt="Eliminar Egreso" style="border:0;" />						 							 	
-					 	</h:commandLink>				
+					 	</h:commandLink>
+					 	</sec:submodulo>				
 					</h:column>
 					
 					<h:column>		

@@ -2,7 +2,8 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
 			    xmlns:ui="http://java.sun.com/jsf/facelets"
 			    xmlns:h="http://java.sun.com/jsf/html"
-			    xmlns:f="http://java.sun.com/jsf/core"    
+			    xmlns:f="http://java.sun.com/jsf/core"
+			    xmlns:sec="http://www.condominioceleste.com/security/facelets/tags"    
 			    template="./template/template_login.xhtml">
     
     <ui:define name="title">
@@ -39,7 +40,9 @@
 					<f:facet name="footer">
 					    <h:panelGroup style="text-align:right">
 					      <h:commandButton id="back" styleClass="boton" value="Regresar" action="#{expensesBean.backAction}" immediate="true" />&#160;&#160;
-					      <h:commandButton id="submit" styleClass="boton" value="Editar" action="#{expensesBean.editExpensesAction}" />
+					      <sec:submodulo modulo="EGRESOS" submodulo="EDT">
+					      	<h:commandButton id="submit" styleClass="boton" value="Editar" action="#{expensesBean.editExpensesAction}" />
+					      </sec:submodulo>
 					    </h:panelGroup>
 					 </f:facet>
 										

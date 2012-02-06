@@ -14,5 +14,13 @@
             <handler-class>com.condominium.security.tags.SecurityModuleTag</handler-class>
         </component>
     </tag>
+    
+     <tag>
+        <tag-name>submodulo</tag-name>
+        <component>
+            <component-type>com.condominium.security.tags.SecuritySubModuleTag</component-type>
+            <handler-class>com.condominium.security.tags.SecuritySubModuleTag</handler-class>
+        </component>
+    </tag>
 
 </facelet-taglib>
