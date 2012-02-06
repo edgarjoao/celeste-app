@@ -13,6 +13,8 @@ INSERT INTO `TIPO_PERMISO` VALUES(3, 'Permiso Egresos', 'EGRESOS');
 INSERT INTO `TIPO_PERMISO` VALUES(4, 'Permiso Terraza', 'TERRAZA');
 INSERT INTO `TIPO_PERMISO` VALUES(5, 'Permiso Reporte General', 'REPORTEG');
 INSERT INTO `TIPO_PERMISO` VALUES(6, 'Permiso Usuarios', 'USUARIOS');
+INSERT INTO `TIPO_PERMISO` VALUES(7, 'Permiso Avisos', 'AVISOS');
+INSERT INTO `TIPO_PERMISO` VALUES(8, 'Permiso Proveedores', 'PROVEEDORES');
 
 
 INSERT INTO `PERMISO` VALUES(1, 'Permiso Eliminar Condominos', 'DEL', 1);
@@ -31,6 +33,14 @@ INSERT INTO `PERMISO` VALUES(13, 'Permiso Modulo Cond—minos', 'MOD', 1);
 INSERT INTO `PERMISO` VALUES(14, 'Permiso M—dulo Ingresos', 'MOD', 2);
 INSERT INTO `PERMISO` VALUES(15, 'Permiso M—dulo Egresos', 'MOD', 3);
 INSERT INTO `PERMISO` VALUES(16, 'Permiso M—dulo Terraza', 'MOD', 4);
+INSERT INTO `PERMISO` VALUES(17, 'Permiso M—dulo de Avisos', 'MOD', 7);
+INSERT INTO `PERMISO` VALUES(18, 'Permiso Agregar Aviso', 'ADD', 7);
+INSERT INTO `PERMISO` VALUES(19, 'Permiso Editar Aviso', 'EDT', 7);
+INSERT INTO `PERMISO` VALUES(20, 'Permiso Eliminar Aviso', 'DEL', 7);
+INSERT INTO `PERMISO` VALUES(21, 'Permiso M—dulo Proveedores', 'MOD', 8);
+INSERT INTO `PERMISO` VALUES(22, 'Permiso Agregar Proveedores', 'ADD', 8);
+INSERT INTO `PERMISO` VALUES(23, 'Permiso Eliminar Proveedores', 'DEL', 8);
+INSERT INTO `PERMISO` VALUES(24, 'Permiso Editar Proveedores', 'EDT', 8);
 
 
 INSERT INTO `PERMISO_USUARIO` VALUES(1, 4, now());
