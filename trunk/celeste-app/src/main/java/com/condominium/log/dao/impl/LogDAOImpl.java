@@ -15,6 +15,7 @@ public class LogDAOImpl extends GenericDAO implements LogDAO {
 	public void addSystemEntry(UserView userView) throws LogException {		
 		try{
 			StringBuilder nombre = new StringBuilder(0);
+			nombre.append("Usuario ID: "+ userView.getUserId() + " ");
 			nombre.append(userView.getNombre()).append(" ");
 			nombre.append(userView.getApaterno()).append(" ");
 			nombre.append(userView.getAmaterno()).append(".");
@@ -28,6 +29,7 @@ public class LogDAOImpl extends GenericDAO implements LogDAO {
 	public void addSystemExit(UserView userView) throws LogException {
 		try{
 			StringBuilder nombre = new StringBuilder(0);
+			nombre.append("Usuario ID: "+ userView.getUserId() + " ");
 			nombre.append(userView.getNombre()).append(" ");
 			nombre.append(userView.getApaterno()).append(" ");
 			nombre.append(userView.getAmaterno()).append(".");
