@@ -11,6 +11,7 @@
     </ui:define>
     
     <ui:define name="content">
+    		<h:outputScript library="js" name="analytics.js" target="head" />
 			<h:form id="listadoCondominosForm">
 				<h:dataTable value="#{condominiumsBean.condominiumsList}" var="row"   
 					headerClass="titulocolumna"

@@ -11,8 +11,7 @@
     </ui:define>
     
     <ui:define name="content">        			
-			<script>				
-			</script>
+			<h:outputScript library="js" name="analytics.js" target="head" />				
 			<h:form id="listadoIngresosForm">				
 				<f:event listener="#{receiptsBean.fillDropDowns}" type="preRenderView" />							
 				<h:panelGrid  cellspacing="1" border="0" width="650 px;" 

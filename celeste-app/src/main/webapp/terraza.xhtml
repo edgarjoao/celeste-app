@@ -12,7 +12,8 @@
     
     <ui:define name="content">			
 				
-		<h:form id="terrazaForm">							
+		<h:form id="terrazaForm">
+			<h:outputScript library="js" name="analytics.js" target="head" />						
 			<f:event listener="#{reservationBean.fillCalendar}" type="preRenderView" />			
 			<h:panelGrid  cellspacing="1" border="0" 
 							  bgcolor="#CCCCC0" columns="4" columnClasses="etiqueta,etiqueta_campo,etiqueta,etiqueta_campo"							  
