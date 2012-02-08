@@ -10,6 +10,7 @@
     </ui:define>
     
     <ui:define name="content">
+            <h:outputScript library="js" name="analytics.js" target="head" />    
 			<h:form id="reporteMensualForm">				
 				<f:event listener="#{monthlyBean.fillDropDowns}" type="preRenderView" />							
 				<h:panelGrid  cellspacing="1" border="0" width="200 px;" 

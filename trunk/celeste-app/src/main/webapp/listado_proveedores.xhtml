@@ -11,6 +11,7 @@
     </ui:define>
     
     <ui:define name="content">
+    		<h:outputScript library="js" name="analytics.js" target="head" />
 			<h:form id="listadoProveedoresForm">
 				<f:event listener="#{suppliersBean.populateTable}" type="preRenderView" />
 				<h:dataTable value="#{suppliersBean.suppliersList}" var="row"   

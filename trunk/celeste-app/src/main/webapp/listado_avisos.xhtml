@@ -10,7 +10,8 @@
         Listado de Avisos
     </ui:define>
     
-    <ui:define name="content">    
+    <ui:define name="content">
+    		<h:outputScript library="js" name="analytics.js" target="head" />    
 			<h:form id="listadoAvisosForm">
 				<f:event listener="#{noticesBean.fillList}" type="preRenderView" />
 				<br />

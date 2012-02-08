@@ -11,6 +11,7 @@
     </ui:define>
     
     <ui:define name="content">
+    		<h:outputScript library="js" name="analytics.js" target="head" />
 			<h:form id="listadoEgresosForm">				
 				<f:event listener="#{expensesBean.fillDropDowns}" type="preRenderView" />				
 				<h:panelGrid  cellspacing="1" border="0" width="650 px;" 

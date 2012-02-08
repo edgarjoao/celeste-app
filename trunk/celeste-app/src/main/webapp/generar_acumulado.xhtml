@@ -11,6 +11,7 @@
     </ui:define>
     
     <ui:define name="content">
+    		<h:outputScript library="js" name="analytics.js" target="head" />
 			<h:form id="acumuladoForm">				
 				<f:event listener="#{cumulativeBean.fillDropDowns}" type="preRenderView" />							
 				<h:panelGrid  cellspacing="1" border="0" width="200 px;" 
