@@ -20,8 +20,8 @@ public class UserDTO implements Serializable {
 	private String nombre;
 	private String apaterno;
 	private String amaterno;
-	private int telCasa;
-	private int telCelular;
+	private String telCasa;
+	private String telCelular;
 	private String email;
 	
 	public int getRoleId() {
@@ -72,16 +72,16 @@ public class UserDTO implements Serializable {
 	public void setAmaterno(String amaterno) {
 		this.amaterno = amaterno;
 	}
-	public int getTelCasa() {
+	public String getTelCasa() {
 		return telCasa;
 	}
-	public void setTelCasa(int telCasa) {
+	public void setTelCasa(String telCasa) {
 		this.telCasa = telCasa;
 	}
-	public int getTelCelular() {
+	public String getTelCelular() {
 		return telCelular;
 	}
-	public void setTelCelular(int telCelular) {
+	public void setTelCelular(String telCelular) {
 		this.telCelular = telCelular;
 	}
 	public String getEmail() {

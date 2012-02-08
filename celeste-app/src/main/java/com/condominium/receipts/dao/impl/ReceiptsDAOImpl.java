@@ -339,8 +339,8 @@ public class ReceiptsDAOImpl extends GenericDAO implements ReceiptsDAO {
 					userDTO.setNombre(rs.getString("U.USR_NOMBRE"));
 					userDTO.setApaterno(rs.getString("U.USR_APATERNO"));
 					userDTO.setAmaterno(rs.getString("U.USR_AMATERNO"));
-					userDTO.setTelCasa(rs.getInt("U.USR_TEL_CASA"));
-					userDTO.setTelCelular(rs.getInt("U.USR_TEL_CELULAR"));
+					userDTO.setTelCasa(rs.getString("U.USR_TEL_CASA"));
+					userDTO.setTelCelular(rs.getString("U.USR_TEL_CELULAR"));
 					dto.setUserDTO(userDTO);					
 					return dto;
 				}

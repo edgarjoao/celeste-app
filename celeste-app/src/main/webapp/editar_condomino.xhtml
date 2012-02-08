@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+			    xmlns:ui="http://java.sun.com/jsf/facelets"
+			    xmlns:h="http://java.sun.com/jsf/html"
+			    xmlns:f="http://java.sun.com/jsf/core"
+			    xmlns:sec="http://www.condominioceleste.com/security/facelets/tags"    
+			    template="./template/template_login.xhtml">
+    
+    <ui:define name="title">
+        Editar Condomino
+    </ui:define>
+    
+    <ui:define name="content">
+    		<h:outputScript library="js" name="jquery-1.7.1.min.js" target="head" />
+			<h:outputScript library="js" name="jquery.maskedinput-1.3.min.js" target="head" />
+			<script>
+		        jQuery(function($){		        	
+		           $("#editarCondominoForm\\:telcasaId").mask("(999) 999-9999");
+		           $("#editarCondominoForm\\:telcelId").mask("(999) 999-9999");
+		       });
+		    </script>			
+    		<h:form id="editarCondominoForm">	   
+    			<f:event listener="#{condominiumEditBean.prefill}" type="preRenderView" /> 					
+				<h:panelGrid  cellspacing="1" border="0" 
+							  bgcolor="#CCCCC0" columns="2" columnClasses="etiqueta,etiqueta_campo"							  
+							  headerClass="titulocolumna" footerClass="columnadatoPar">					
+							  					
+					<f:facet name="header">
+						<h:outputText value="Editar Condomino" />  
+					 </f:facet>		  							  																					
+																		
+					<h:outputText value="Usuario" />
+					<h:outputText value="#{condominiumEditBean.userView.username}" />
+					
+					<h:outputText value="Rol de Usuario" />
+					<h:selectOneMenu id="rolId" value="#{condominiumEditBean.userView.roleId}"  styleClass="campo_texto" >
+							<f:ajax render="@none" execute="@this" />
+	  						<f:selectItems value="#{condominiumEditBean.rolList}" />	  							
+					</h:selectOneMenu>
+					
+					<h:outputText value="Contrasenia" />
+					<h:inputSecret value="#{condominiumEditBean.userView.password}" redisplay="true" required="true" requiredMessage="La contrasenia es requerida." styleClass="campo_texto" ></h:inputSecret>
+					
+					<h:outputText value="Nombre" />
+					<h:inputText value="#{condominiumEditBean.userView.nombre}" required="true" requiredMessage="El nombre es requerido." styleClass="campo_texto" ></h:inputText>
+
+					<h:outputText value="Apellido Paterno" />
+					<h:inputText value="#{condominiumEditBean.userView.apaterno}" required="true" requiredMessage="El apellido Paterno es requerido." styleClass="campo_texto" ></h:inputText>
+					
+					<h:outputText value="Apellido Materno" />
+					<h:inputText value="#{condominiumEditBean.userView.amaterno}" styleClass="campo_texto"></h:inputText>
+					
+					<h:outputText value="Tel. Casa" />
+					<h:inputText id="telcasaId" value="#{condominiumEditBean.userView.telCasa}" styleClass="campo_texto" ></h:inputText>
+					
+					<h:outputText value="Tel. Celular" />
+					<h:inputText id="telcelId" value="#{condominiumEditBean.userView.telCelular}" styleClass="campo_texto" ></h:inputText>
+					
+					<h:outputText value="Email" />
+					<h:inputText value="#{condominiumEditBean.userView.email}" styleClass="campo_texto" ></h:inputText>				
+					
+					<f:facet name="footer">
+					    <h:panelGroup style="text-align:right">
+					      <h:commandButton id="back" styleClass="boton" value="Regresar" action="#{condominiumEditBean.goBackAction}" immediate="true" />&#160;&#160;
+					      <sec:submodulo modulo="CONDOMINOS" submodulo="EDT">					      
+					      	<h:commandButton id="submit" styleClass="boton" value="Editar" action="#{condominiumEditBean.editAction}" />
+					      </sec:submodulo>					      
+					    </h:panelGroup>
+					 </f:facet>
+										
+				</h:panelGrid>
+				
+			</h:form>
+	</ui:define>
+    
+</ui:composition>

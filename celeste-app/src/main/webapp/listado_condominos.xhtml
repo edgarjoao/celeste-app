@@ -21,7 +21,20 @@
 					<h:column>		
 						<f:facet name="header">											
 						 	<h:graphicImage value="resources/images/nuevo.gif" alt="Agregar Condomino" style="border:0;" />		
-						 </f:facet>				
+						 </f:facet>		
+					 	<sec:submodulo modulo="CONDOMINOS" submodulo="EDT">
+						 	 <h:commandLink action="#{condominiumsBean.goEditAction}">	
+						 		<f:param name="id" value="#{row.userView.userId}" />	
+						 		<h:graphicImage value="resources/images/modificar.gif" alt="Modificar Condomino" title="Modificar Condomino" style="border:0;" />						 							 	
+						 	</h:commandLink>
+					 	</sec:submodulo>
+					 	:
+					 	<sec:submodulo modulo="PERMISOS" submodulo="EDT">
+							 <h:commandLink action="#{condominiumsBean.goPermissionsAction}">	
+						 		<f:param name="id" value="#{row.userView.userId}" />	
+						 		<h:graphicImage value="resources/images/occonfig_edit.png" alt="Modificar Permisos" title="Modificar Permisos" style="border:0;" />						 							 	
+						 	</h:commandLink>
+					 	</sec:submodulo>
 					</h:column>
 					
 					<h:column>

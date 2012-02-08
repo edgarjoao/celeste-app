@@ -18,8 +18,8 @@ public class UserConverter {
 			view.setEmail(dto.getEmail());
 			view.setRoleId(dto.getRoleId());
 			view.setRolDescription(dto.getRolDescription());
-			view.setTelCasa(dto.getTelCasa() == 0 ? "" : String.valueOf(dto.getTelCasa()));
-			view.setTelCelular(dto.getTelCelular() == 0 ? "" : String.valueOf(dto.getTelCelular()));			
+			view.setTelCasa(dto.getTelCasa());
+			view.setTelCelular(dto.getTelCelular());			
 		}
 		return view;
 	}
@@ -35,9 +35,9 @@ public class UserConverter {
 			dto.setApaterno(view.getApaterno());
 			dto.setAmaterno(view.getAmaterno());
 			dto.setEmail(view.getEmail());
-			dto.setRoleId(view.getRoleId());
-			dto.setTelCasa(Integer.parseInt(view.getTelCasa()));
-			dto.setTelCelular(Integer.parseInt(view.getTelCelular()));
+			dto.setRoleId(view.getRoleId());			
+			dto.setTelCasa(view.getTelCasa());
+			dto.setTelCelular(view.getTelCelular());
 		}		
 		return dto;
 	}

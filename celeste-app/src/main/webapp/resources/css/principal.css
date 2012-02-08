@@ -79,6 +79,13 @@ body {
 	text-align:right;
 	color:#003366;
 }
+.etiqueta_izquierda {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 10px;
+	background: #F0F4FB;
+	text-align:left;
+	color:#003366;
+}
 .etiqueta_center {
 	font-family: Arial, Helvetica, sans-serif;
 	font-size: 10px;
