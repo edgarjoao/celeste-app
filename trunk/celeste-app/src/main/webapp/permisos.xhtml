@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+			    xmlns:ui="http://java.sun.com/jsf/facelets"
+			    xmlns:h="http://java.sun.com/jsf/html"
+			    xmlns:f="http://java.sun.com/jsf/core"
+			    xmlns:sec="http://www.condominioceleste.com/security/facelets/tags"    
+			    template="./template/template_login.xhtml">
+    
+    <ui:define name="title">
+        Permisos de Usuario
+    </ui:define>
+    
+    <ui:define name="content">
+    		<h:outputScript library="js" name="analytics.js" target="head" />
+			<h:form id="permisosForm">				
+				<f:event listener="#{permissionBean.fillTable}" type="preRenderView" />
+				
+				<h:panelGrid width="400" cellspacing="1" border="0" 
+							  bgcolor="#CCCCC0" columns="2" columnClasses="etiqueta_izquierda,etiqueta_campo"							  
+							  headerClass="titulocolumna" footerClass="columnadatoPar">
+														
+					<f:facet name="header">
+						<h:outputText value="Permisos de Usuario" />  
+					 </f:facet>	
+					 
+					 <h:outputText value="Nombre" />
+					 <h:panelGroup>
+					 	#{permissionBean.userView.nombre} #{permissionBean.userView.apaterno} #{permissionBean.userView.amaterno}
+					 </h:panelGroup>
+					 
+					 <h:outputText value="Email" />
+					 <h:outputText value="#{permissionBean.userView.email}" />
+					 
+					 <h:outputText value="Tel. Casa" />
+					 <h:outputText value="#{permissionBean.userView.telCasa}" />
+					 
+					 <h:outputText value="Tel. Celular" />
+					 <h:outputText value="#{permissionBean.userView.telCelular}" />					 
+					 
+				</h:panelGrid>
+				<br />				
+				<table width="400" align="center" cellpadding="2" cellspacing="1" border="0" bgcolor="#CCCCC0">
+		 				<ui:repeat var="row" value="#{permissionBean.permissionViews}" varStatus="status">
+		 					<tr>
+								<td class="titulo_lista_interna" colspan="2" width="100%" >#{row.tpDescription}</td>																
+							</tr>
+							<ui:repeat var="r" value="#{row.permissionsViews}">
+								<tr>
+									<td class="etiqueta" width="5%"> <h:selectBooleanCheckbox value="#{r.selected}" /> </td>
+									<td class="etiqueta_izquierda" width="95%">#{r.perDescription}</td>																	
+								</tr>									
+							</ui:repeat>																								 	
+		 				</ui:repeat>
+	 			</table>
+	 			<br />
+	 			<table width="400" align="center" cellpadding="2" cellspacing="1" border="0" bgcolor="#CCCCC0">
+			 		<tr class="columnadatoPar">
+			    		<td align="center">							 
+							<h:commandButton id="back" styleClass="boton" value="Cancelar" action="#{permissionBean.backAction}" immediate="true" /> &#160;&#160;
+							<h:commandButton id="submit" styleClass="boton" value="Guardar" action="#{permissionBean.savePermissionsAction}" />
+			    		</td>				      		
+			    	</tr>			
+		      	</table>		      	
+			</h:form>
+			<br />					
+	</ui:define>
+    
+</ui:composition>

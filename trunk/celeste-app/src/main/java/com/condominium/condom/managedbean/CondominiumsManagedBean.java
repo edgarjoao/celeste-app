@@ -16,9 +16,21 @@ import com.condominium.user.exception.UserException;
 @ViewScoped
 public class CondominiumsManagedBean implements Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -6168183502798380463L;
+	
 	@ManagedProperty(value="#{condominiumsService}")
 	private CondominiumsService condominiumsService;
 
+	public String goPermissionsAction(){
+		return "permisos";
+	}
+	
+	public String goEditAction(){
+		return "editar_condomino";
+	}
 	
 	public List<CondominiumsView> getCondominiumsList(){
 		List<CondominiumsView> list = new ArrayList<CondominiumsView>(0);		

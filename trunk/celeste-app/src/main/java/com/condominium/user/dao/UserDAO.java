@@ -1,5 +1,9 @@
 package com.condominium.user.dao;
 
+import java.util.List;
+
+import javax.faces.model.SelectItem;
+
 import com.condominium.user.dto.UserDTO;
 import com.condominium.user.exception.UserException;
 
@@ -14,7 +18,11 @@ public interface UserDAO {
 	
 	public void insertUser(UserDTO dto) throws UserException;
 	
-	//public List<UserDTO> getUsersList() throws UserException;
+	public UserDTO getUserById(int userId) throws UserException;
+	
+	public void editUser(UserDTO userDTO) throws UserException;
+	
+	public List<SelectItem> getRoles() throws UserException;
 
 	
 }

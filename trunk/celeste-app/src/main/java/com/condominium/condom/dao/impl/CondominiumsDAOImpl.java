@@ -23,7 +23,7 @@ public class CondominiumsDAOImpl extends GenericDAO implements CondominiumsDAO {
 	public List<CondominiumsDTO> getCondominiumsList() throws UserException {
 		List<CondominiumsDTO> condominiumsList = null;
 		StringBuilder sql = new StringBuilder(0);
-		sql.append("SELECT C.COND_ID, C.COND_NUM_CASA, C.CON_ID, C.USR_ID, T.TC_DESCRIPCION, U.USR_NOMBRE, U.USR_APATERNO, U.USR_AMATERNO, U.USR_EMAIL, U.USR_TEL_CASA, U.USR_TEL_CELULAR FROM CONDOMINOS C, TIPO_CONDOMINO T, USUARIO U ");
+		sql.append("SELECT C.COND_ID, C.COND_NUM_CASA, C.CON_ID, C.USR_ID, T.TC_DESCRIPCION, U.USR_ID, U.USR_NOMBRE, U.USR_APATERNO, U.USR_AMATERNO, U.USR_EMAIL, U.USR_TEL_CASA, U.USR_TEL_CELULAR FROM CONDOMINOS C, TIPO_CONDOMINO T, USUARIO U ");
 		sql.append(" WHERE C.TC_ID = T.TC_ID AND C.USR_ID = U.USR_ID");
 		try{
 			
@@ -36,12 +36,13 @@ public class CondominiumsDAOImpl extends GenericDAO implements CondominiumsDAO {
 					dto.setCondominiumId(rs.getInt("C.CON_ID"));
 					dto.setTypeDescription(rs.getString("T.TC_DESCRIPCION"));
 					UserDTO userDTO = new UserDTO();
+					userDTO.setUserId(rs.getInt("U.USR_ID"));
 					userDTO.setNombre(rs.getString("U.USR_NOMBRE"));
 					userDTO.setApaterno((rs.getString("U.USR_APATERNO")));
 					userDTO.setAmaterno((rs.getString("U.USR_AMATERNO")));										
 					userDTO.setEmail((rs.getString("U.USR_EMAIL")));
-					userDTO.setTelCasa(rs.getInt("U.USR_TEL_CASA"));
-					userDTO.setTelCelular(rs.getInt("U.USR_TEL_CELULAR"));
+					userDTO.setTelCasa(rs.getString("U.USR_TEL_CASA"));
+					userDTO.setTelCelular(rs.getString("U.USR_TEL_CELULAR"));
 					dto.setUserDTO(userDTO);
 					return dto;
 				}
