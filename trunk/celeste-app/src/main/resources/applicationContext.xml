@@ -18,9 +18,9 @@
     <context:annotation-config /> 
     <context:component-scan base-package="com.condominium" />
     
-    <!-- <task:scheduler id="scheduler" pool-size="10"/>
+    <task:scheduler id="scheduler" pool-size="10"/>
     <task:executor id="executor" pool-size="10"/>
-    <task:annotation-driven scheduler="scheduler" executor="executor"/> -->
+    <task:annotation-driven scheduler="scheduler" executor="executor"/>
 	
 	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
     	<property name="driverClassName" value="${jdbc.driver}"/>
