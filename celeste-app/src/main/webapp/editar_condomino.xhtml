@@ -57,7 +57,7 @@
 					<h:inputText id="telcelId" value="#{condominiumEditBean.userView.telCelular}" styleClass="campo_texto" ></h:inputText>
 					
 					<h:outputText value="Email" />
-					<h:inputText value="#{condominiumEditBean.userView.email}" styleClass="campo_texto" ></h:inputText>				
+					<h:inputText value="#{condominiumEditBean.userView.email}" styleClass="campo_texto" validator="#{condominiumEditBean.validateEmail}" ></h:inputText>				
 					
 					<f:facet name="footer">
 					    <h:panelGroup style="text-align:right">
