@@ -227,7 +227,7 @@ public class ExpensesDAOImpl extends GenericDAO implements ExpensesDAO {
 	public void editExpensesDTO(ExpensesDTO dto) throws ExpensesException {
 		try{
 			this.jdbcTemplate.update("UPDATE EGRESOS SET EGR_IMPORTE = ?, EGR_COMENTARIOS = ?, CATE_ID = ?, PROV_ID = ?, USR_ID = ? WHERE EGR_ID = ?", 
-								new Object[]{dto.getAmount(), dto.getComments(),dto.getExpensesItemDTO().getId(), dto.getSuppliersDTO().getProvId(), dto.getId(), dto.getUserId()});
+								new Object[]{dto.getAmount(), dto.getComments(),dto.getExpensesItemDTO().getId(), dto.getSuppliersDTO().getProvId(), dto.getUserId(), dto.getId()});
 		}catch(DataAccessException exception){
 			ExpensesException expensesException = new ExpensesException(exception, ExpensesException.LAYER_DAO, ExpensesException.ACTION_UPDATE);
 			log.error(exception);

@@ -16,6 +16,8 @@ import javax.faces.context.FacesContext;
 import javax.faces.event.ComponentSystemEvent;
 import javax.faces.model.SelectItem;
 
+import org.apache.log4j.Logger;
+
 import com.condominium.common.utils.JSFUtil;
 import com.condominium.common.utils.NumberUtil;
 import com.condominium.expenses.exception.ExpensesException;
@@ -26,6 +28,8 @@ import com.condominium.user.view.UserView;
 @ManagedBean(name="expensesBean")
 @SessionScoped
 public class ExpensesManagedBean implements Serializable {
+	
+	private static final Logger log = Logger.getLogger(ExpensesManagedBean.class);
 	
 	@ManagedProperty(value="#{expensesService}")
 	private ExpensesService expensesService;
@@ -88,7 +92,8 @@ public class ExpensesManagedBean implements Serializable {
 				JSFUtil.writeMessage(FacesMessage.SEVERITY_ERROR, "No se encontraron resultados.", "No se encontraron resultados.");				
 			}			
 		} catch (ExpensesException e) {
-			JSFUtil.writeMessage(FacesMessage.SEVERITY_ERROR, e.getMessage(), e.getExceptionCode());			
+			JSFUtil.writeMessage(FacesMessage.SEVERITY_ERROR, e.getMessage(), e.getExceptionCode());
+			log.error(e);
 		}	
 		return null;
 	}
@@ -120,11 +125,13 @@ public class ExpensesManagedBean implements Serializable {
 	
 	public String addAndNewExpensesAction(){
 		try{
+			expensesView.setUserId(JSFUtil.getSessionAttribute(UserView.class, "userView").getUserId());
 			this.expensesService.addExpenses(expensesView);
 			this.clean();
 			JSFUtil.writeMessage(FacesMessage.SEVERITY_INFO, "El egreso se ha registrado correctamente.", "El egreso se ha registrado correctamente.");
 		} catch (ExpensesException e) {
-			JSFUtil.writeMessage(FacesMessage.SEVERITY_ERROR, e.getMessage(), e.getExceptionCode());
+			JSFUtil.writeMessage(FacesMessage.SEVERITY_ERROR, e.getExceptionCode(), e.getExceptionCode());
+			log.error(e);
 			return null;
 		}	
 		return "registrar_egreso";
@@ -153,6 +160,7 @@ public class ExpensesManagedBean implements Serializable {
 			JSFUtil.writeMessage(FacesMessage.SEVERITY_INFO, "El egreso se ha editado correctamente.", "El egreso se ha editado correctamente.");
 		} catch (ExpensesException e) {
 			JSFUtil.writeMessage(FacesMessage.SEVERITY_ERROR, e.getErrorCode(), "Hubo un error al tratar de editar el egreso.");
+			log.error(e);
 			return null;
 		}		
 		return "listado_egresos";
@@ -166,6 +174,7 @@ public class ExpensesManagedBean implements Serializable {
 			JSFUtil.writeMessage(FacesMessage.SEVERITY_INFO, "El egreso se ha registrado correctamente.", "El egreso se ha registrado correctamente.");
 		} catch (ExpensesException e) {
 			JSFUtil.writeMessage(FacesMessage.SEVERITY_ERROR, e.getMessage(), e.getExceptionCode());
+			log.error(e);
 			return null;
 		}	
 		return "listado_egresos";
@@ -179,9 +188,11 @@ public class ExpensesManagedBean implements Serializable {
 			JSFUtil.writeMessage(FacesMessage.SEVERITY_ERROR, "El Egreso se ha eliminado correctamente.", "El Egreso se ha eliminado correctamente.");
 		} catch (NumberFormatException e) {
 			JSFUtil.writeMessage(FacesMessage.SEVERITY_ERROR, "El Id no es entero.", "El Id no es entero.");
+			log.error(e);
 			return null;
 		} catch (ExpensesException e) {
 			JSFUtil.writeMessage(FacesMessage.SEVERITY_ERROR, e.getMessage(), e.getExceptionCode());
+			log.error(e);
 			return null;
 		}		
 		return "listado_egresos";
