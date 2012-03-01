@@ -57,14 +57,14 @@
 					<f:facet name="footer">
 						<h:panelGroup style="text-align:right">		  
 							<h:commandButton id="buscarId" styleClass="boton" value="Buscar" action="#{condominiumsDebtsBean.searchDebtsAction}">
-								<f:ajax render="headerId addeudosId anioId mesId" execute="@this" onevent="showDateIndicator" />
+								<f:ajax render="headerId addeudosId anioId mesId" execute="@this" />
 							</h:commandButton>		
 						</h:panelGroup>
 					 </f:facet>
 					
 				</h:panelGrid>	    			    			    			      					
 	      	</div>
-	      	<ajax:ajax />	      	
+	      	<br  />      	
 			<div align="left" style="OVERFLOW: scroll; WIDTH: 250px; HEIGHT: 400px;">
 				<h:panelGroup id="addeudosId">
 					<table width="100%" align="center" cellpadding="2" cellspacing="1" border="0" bgcolor="#CCCCC0">						
