@@ -2,6 +2,7 @@ package com.condominium.receipts.dao.impl;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -428,6 +429,65 @@ public class ReceiptsDAOImpl extends GenericDAO implements ReceiptsDAO {
 			throw receiptsException;
 		}
 		return result;
+	}
+	
+	public List<Double> getGeneralReportAmount(int month, int year, int category) throws ReceiptsException {
+		List<Double> list = new ArrayList<Double>(0);
+		StringBuilder sql = new StringBuilder(0);
+		sql.append("SELECT ING_IMPORTE ");
+		sql.append(" FROM CONDOMINOS C LEFT JOIN ( SELECT ING_IMPORTE, I.COND_ID ");
+		sql.append(" FROM INGRESOS I INNER JOIN CATALOGO_INGRESOS CI ON I.CATI_ID = CI.CATI_ID ");
+		sql.append(" WHERE MONTH(ING_FECHA_INGRESO) = ? AND YEAR(ING_FECHA_INGRESO) = ?  AND CI.CATI_ID = ?) ");
+		sql.append(" I USING (COND_ID) JOIN USUARIO USING (USR_ID) ");
+		sql.append(" ORDER BY COND_NUM_CASA ASC ");
+		
+		try{
+			list = this.jdbcTemplate.query(sql.toString(), new Object[]{month, year, category}, new RowMapper<Double>() {
+				public Double mapRow(ResultSet rs, int rowNum) throws SQLException {
+					Double amount = new Double(rs.getDouble("ING_IMPORTE"));					
+					return amount;
+				}					
+			});	
+		}catch(DataAccessException exception){
+			log.error(exception);
+			ReceiptsException receiptsException = new ReceiptsException(exception, ReceiptsException.LAYER_DAO, ReceiptsException.ACTION_SELECT);
+			throw receiptsException;
+		}
+		return list;
+	}
+
+
+	public List<CondominiumsDTO> getGeneralReportCondominiums(int month, int year, int category)
+			throws ReceiptsException {
+		List<CondominiumsDTO> list = null;
+		StringBuilder sql = new StringBuilder(0);
+		try{
+			sql.append("SELECT C.COND_NUM_CASA, USR_NOMBRE, USR_APATERNO, USR_AMATERNO, CATI_DESCRIPCION  ");
+			sql.append("FROM CONDOMINOS C LEFT JOIN ( SELECT ING_IMPORTE, CATI_DESCRIPCION, I.COND_ID  ");
+			sql.append("FROM INGRESOS I INNER JOIN CATALOGO_INGRESOS CI ON I.CATI_ID = CI.CATI_ID  ");
+			sql.append("WHERE MONTH(ING_FECHA_INGRESO) = ? AND YEAR(ING_FECHA_INGRESO) = ? AND CI.CATI_ID = ? )  ");
+			sql.append("I USING (COND_ID) JOIN USUARIO USING (USR_ID)  ");
+			sql.append("ORDER BY COND_NUM_CASA ASC  ");
+			
+			list = this.jdbcTemplate.query(sql.toString(), new Object[]{month, year, category}, new RowMapper<CondominiumsDTO>() {				
+				public CondominiumsDTO mapRow(ResultSet rs, int arg1) throws SQLException {
+					CondominiumsDTO dto = new CondominiumsDTO();
+					dto.setHouseNumber(rs.getInt("C.COND_NUM_CASA"));
+					UserDTO userDTO = new UserDTO();
+					userDTO.setNombre(rs.getString("USR_NOMBRE"));
+					userDTO.setApaterno(rs.getString("USR_APATERNO"));
+					userDTO.setAmaterno(rs.getString("USR_APATERNO"));
+					dto.setUserDTO(userDTO);					
+					dto.setDebDescription(rs.getString("CATI_DESCRIPCION"));
+					return dto;
+				}
+			});			
+		}catch(Exception exception){
+			log.error(exception);
+			ReceiptsException receiptsException = new ReceiptsException(exception, ReceiptsException.LAYER_DAO, ReceiptsException.ACTION_SELECT);
+			throw receiptsException;
+		}		
+		return list;
 	}
 
 }

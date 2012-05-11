@@ -1,7 +1,10 @@
 package com.condominium.receipts.service.impl;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import javax.faces.model.SelectItem;
@@ -10,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.condominium.common.utils.NumberUtil;
+import com.condominium.common.utils.StringUtils;
 import com.condominium.common.utils.TimeUtils;
 import com.condominium.condom.converter.CondominiumsConverter;
 import com.condominium.condom.view.CondominiumsView;
@@ -25,6 +29,8 @@ import com.condominium.receipts.service.ReceiptsService;
 import com.condominium.receipts.view.ReceiptsItemView;
 import com.condominium.receipts.view.ReceiptsReportView;
 import com.condominium.receipts.view.ReceiptsView;
+import com.condominium.reports.generalreport.view.GeneralReceiptsReportView;
+import com.condominium.reports.generalreport.view.GeneralReportView;
 /**
  * 
  * @author rioslore
@@ -243,6 +249,74 @@ public class ReceiptsServiceImpl implements ReceiptsService {
 	public void generateCumulativeMonth() throws ReceiptsException {
 		
 		
+	}
+	
+	public GeneralReceiptsReportView getGeneralReport(String initMonth, String initYear, String endMonth, String endYear,
+			String category) throws ReceiptsException {
+
+		GeneralReceiptsReportView gReportView = new GeneralReceiptsReportView();
+		String strdate = TimeUtils.buildStringDate("01",initMonth, initYear);  //"01/10/2011";// any start date
+		String enddate = TimeUtils.buildStringDate("01",endMonth, endYear);//"01/05/2012";// any end date
+		SimpleDateFormat formatterDate = new SimpleDateFormat("dd/MM/yyyy");				
+		Date st = null;
+		Date ed = null;
+		try {
+			st = formatterDate.parse(strdate);
+			ed = formatterDate.parse(enddate);
+		} catch (ParseException e) {			
+			ReceiptsException rException = 
+						new ReceiptsException("Formato de Fecha invalido.", ReceiptsException.LAYER_SERVICE, ReceiptsException.ACTION_LISTS);
+			throw rException;
+		}
+		Calendar ss = Calendar.getInstance();
+		Calendar ee = Calendar.getInstance();
+
+		ss.setTime(st);
+		ee.setTime(ed);
+		ee.add(Calendar.MONTH, 1);//Adding a month
+		List<GeneralReportView> gViews = new ArrayList<GeneralReportView>(0);
+		List<Double> totalAmountPeriod = new ArrayList<Double>(0);
+		while (!ss.equals(ee)) {			
+			int month = ss.get(Calendar.MONTH) + 1;
+			int year = ss.get(Calendar.YEAR);		
+			ss.add(Calendar.MONTH, 1);
+			GeneralReportView generalReportView = new GeneralReportView();
+			//Adding period
+			generalReportView.setRangeDate(StringUtils.getMonth(month) +" " + year);
+			generalReportView.setAmount(receiptsDAO.getGeneralReportAmount(month, year, Integer.parseInt(category)));
+			//Adding total Amount
+			double totalAP = ReceiptsServiceImpl.sum(generalReportView.getAmount());
+			totalAmountPeriod.add(new Double(totalAP));
+			String totalAmount = NumberUtil.convertQuantity(totalAP);
+			generalReportView.setTotalAmount(totalAmount);
+			gViews.add(generalReportView);						
+		}
+		gReportView.setGeneralReportViews(gViews);		
+		List<CondominiumsView> list = new ArrayList<CondominiumsView>(0);
+		try{
+			CondominiumsConverter converter = new CondominiumsConverter();
+			list = converter.convertCondominiumsDTOsToViews(receiptsDAO.getGeneralReportCondominiums(Integer.parseInt(initMonth), Integer.parseInt(initYear), Integer.parseInt(category)));
+			gReportView.setCondominiumsViews(list);
+		}catch(ReceiptsException receiptsException){			
+			throw receiptsException;
+		}
+		//Adding Catalog Description
+		if(!list.isEmpty()){
+			gReportView.setCatalogDescription(list.get(0).getDebDescription());
+		}		
+		//Adding total Amount Period
+		if(!totalAmountPeriod.isEmpty()){
+			gReportView.setTotalAmountPeriod(NumberUtil.convertQuantity(ReceiptsServiceImpl.sum(totalAmountPeriod)));
+		}		
+		return gReportView;
+	}
+	
+	public static double sum(List<Double> list) {
+	     double sum= 0; 
+	     for (Double i:list){
+	         sum = sum + i;
+	     }
+	     return sum;
 	}
 	
 }

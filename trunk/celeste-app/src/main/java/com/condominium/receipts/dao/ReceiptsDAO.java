@@ -48,5 +48,9 @@ public interface ReceiptsDAO {
 	public EventsDTO getEventDTOById(int id) throws ReceiptsException;
 	
 	public boolean validateBeforeReserv(int day, int month, int year) throws ReceiptsException;
+	
+	public List<Double> getGeneralReportAmount(int month, int year, int category) throws ReceiptsException;
+	
+	public List<CondominiumsDTO> getGeneralReportCondominiums(int month, int year, int category) throws ReceiptsException;
 		
 }
