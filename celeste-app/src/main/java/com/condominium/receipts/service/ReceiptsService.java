@@ -10,6 +10,7 @@ import com.condominium.receipts.exception.ReceiptsException;
 import com.condominium.receipts.view.ReceiptsItemView;
 import com.condominium.receipts.view.ReceiptsReportView;
 import com.condominium.receipts.view.ReceiptsView;
+import com.condominium.reports.generalreport.view.GeneralReceiptsReportView;
 
 public interface ReceiptsService {
 	
@@ -46,5 +47,7 @@ public interface ReceiptsService {
 	public void editEventView(EventsView view) throws ReceiptsException;
 	
 	public EventsView getEventEventsViewById(int id) throws ReceiptsException;
+	
+	public GeneralReceiptsReportView getGeneralReport(String initMonth, String initYear, String endMonth, String endYear, String category) throws ReceiptsException;
 		
 }
