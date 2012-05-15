@@ -90,6 +90,7 @@
 					
 					<h:outputText value="Tipo de Ingreso" />
 					<h:selectOneMenu id="tipoIngresoId" value="#{generalReportBean.receiptId}"  styleClass="campo_texto" >
+							<f:ajax render="@none" execute="@this" />
 	  						<f:selectItems value="#{receiptsBean.receiptsList}" />
 					</h:selectOneMenu>
 					
@@ -104,9 +105,9 @@
 				<br />
 			 <h:panelGroup rendered="#{generalReportBean.showReport}">			 								
 				
-				<table width="100%" align="center" cellpadding="2" cellspacing="1" border="0" bgcolor="#CCCCC0">
-					<tr>
-						<td>
+				<table align="center"  cellspacing="0" border="0" bgcolor="#CCCCC0">
+					<tr valign="top">
+						<td valign="top">
 							<table>
 								<tr>
 				       				<td align="center" class="titulocolumna">Casa</td>
@@ -118,27 +119,30 @@
 				       					<td class="titulo_lista_interna">#{row.houseNumber}</td>
 				       					<td class="titulo_lista_interna"> #{row.userView.nombre} #{row.userView.apaterno} #{row.userView.amaterno} </td>
 				       				</tr>
-				       			</ui:repeat>	
+				       			</ui:repeat>
+				       			<tr>
+				       				<td align="center" colspan="2" class="etiqueta_campo_right">Totales:</td>
+				       			</tr>	
 							</table>						
 						</td>
 						
-						<td>
-							<table>
-							 <tr>
+						<td valign="top">
+							<table border="0" bgcolor="#CCCCC0">
+							 <tr valign="top">
 								<c:forEach items="${generalReportBean.gReceiptsReportView.generalReportViews}" var="row" >                                                                               
-                                        <td>
-                                        <table>
-	                                        <tr>
+                                        <td valign="top">
+                                        <table border="0" bgcolor="#CCCCC0">
+	                                        <tr valign="top">
 	                                           <td align="center" class="titulocolumna">#{row.rangeDate}</td>
 	                                        </tr> 
 		                                   
 		                                    <c:forEach items="${row.amount}" var="r">
-	                                            <tr>
-       											 <td class="etiqueta_campo_right"> <h:outputLabel value="#{r}" style="#{r lt 0 ? 'color: red;' : ''}" /> </td>
+	                                            <tr valign="top">
+       											 <td class="etiqueta_campo_right"> <h:outputLabel value="#{r}" style="#{r &#60;= 0 ? 'color: red;' : ''}" /> </td>
 												</tr>                                                                                                                                                                                                                                                    
 	                                        </c:forEach>
 	                                        <tr>
-	                                        	<td class="etiqueta_campo_right"> <h:outputLabel value="#{row.totalAmount}" /> </td>
+	                                        	<td class="etiqueta_campo_right"> <h:outputLabel value="#{row.totalAmount}" style="#{row.totalAmount eq '0.00' ? 'color: red;' : ''}" /> </td>
 	                                        </tr>
                                         </table>
                                         </td>                                                                             
