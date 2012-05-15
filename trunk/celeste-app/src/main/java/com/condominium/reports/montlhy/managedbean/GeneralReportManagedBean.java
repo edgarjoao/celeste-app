@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -36,7 +37,8 @@ public class GeneralReportManagedBean implements Serializable{
 		Calendar cal = Calendar.getInstance();
 		if(initMonth == null && initYear == null){					
 			this.initMonth = String.valueOf(cal.get(Calendar.MONTH) + 1);
-			this.initYear = String.valueOf(cal.get(Calendar.YEAR));	
+			this.initYear = String.valueOf(cal.get(Calendar.YEAR));
+			this.receiptId = "-1";
 			//Adding one month to end date
 			String date = TimeUtils.buildStringDate("01", initMonth, initYear);
 			Calendar ncal = Calendar.getInstance();
@@ -52,6 +54,7 @@ public class GeneralReportManagedBean implements Serializable{
 			if(initMonth.equals("") && initYear.equals("")){
 				this.initMonth = String.valueOf(cal.get(Calendar.MONTH) + 1);
 				this.initYear = String.valueOf(cal.get(Calendar.YEAR));
+				this.receiptId = "-1";
 				//Adding one month to end date
 				String date = TimeUtils.buildStringDate("01", initMonth, initYear);
 				Calendar ncal = Calendar.getInstance();
@@ -69,6 +72,19 @@ public class GeneralReportManagedBean implements Serializable{
 	
 	public String searchAction(){		
 		try {
+			
+			Date initDate = new Date("01/"+initMonth+"/"+initYear);
+			Date endDate = new Date("01/"+endMonth+"/"+endYear);
+			
+			if(endDate.before(initDate)){
+				JSFUtil.writeMessage(FacesMessage.SEVERITY_ERROR, "La fecha final debe ser mayor que la fina inicial.", "La fecha final debe ser mayor que la fina inicial.");
+				return null;
+			}
+			if(receiptId.equals("-1")){
+				JSFUtil.writeMessage(FacesMessage.SEVERITY_ERROR, "Selecciona un tipo de Ingreso.", "Selecciona un tipo de Ingreso.");
+				return null;
+			}
+			
 			gReceiptsReportView = receiptsService.getGeneralReport(initMonth, initYear, endMonth, endYear, receiptId);
 			if(!gReceiptsReportView.getGeneralReportViews().isEmpty()){
 				this.showReport = true;	
