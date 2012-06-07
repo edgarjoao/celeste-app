@@ -18,6 +18,7 @@ import com.condominium.common.utils.NumberUtil;
 import com.condominium.common.utils.StringUtils;
 import com.condominium.expenses.exception.ExpensesException;
 import com.condominium.expenses.service.ExpensesService;
+import com.condominium.expenses.view.ExpensesDetailReportView;
 import com.condominium.expenses.view.ExpensesReportView;
 import com.condominium.receipts.exception.ReceiptsException;
 import com.condominium.receipts.service.ReceiptsService;
@@ -128,7 +129,7 @@ public class MonthlyReportManagedBean implements Serializable {
 		try{
 			PdfWriter.getInstance(document, response.getOutputStream());
 			document.open();
-			Paragraph header = new Paragraph("Reporte Mensual",FontFactory.getFont(FontFactory.TIMES_ROMAN,12, Font.BOLD, BaseColor.BLACK) );
+			Paragraph header = new Paragraph("Reporte Mensual",FontFactory.getFont(FontFactory.TIMES_ROMAN,9, Font.BOLD, BaseColor.BLACK) );
 			header.setAlignment(Element.ALIGN_CENTER);			
 			document.add(header);
 			Paragraph headerFecha = new Paragraph(headerText);
@@ -137,9 +138,9 @@ public class MonthlyReportManagedBean implements Serializable {
 			document.add(Chunk.NEWLINE);			
 			
 			PdfPTable tablaIngresos = new PdfPTable(3);																	
-			PdfPCell ingresosHeader = new PdfPCell(new Phrase("Ingresos", FontFactory.getFont(FontFactory.TIMES_ROMAN,12,Font.BOLD, BaseColor.WHITE)));
+			PdfPCell ingresosHeader = new PdfPCell(new Phrase("INGRESOS", FontFactory.getFont(FontFactory.TIMES_ROMAN,9,Font.BOLD, BaseColor.BLACK)));
 			ingresosHeader.setColspan(3);
-			ingresosHeader.setBackgroundColor(BaseColor.GRAY);
+			ingresosHeader.setBackgroundColor(BaseColor.LIGHT_GRAY);
 			
 			ingresosHeader.setHorizontalAlignment(Element.ALIGN_LEFT);									
 			tablaIngresos.addCell(ingresosHeader);				
@@ -166,37 +167,80 @@ public class MonthlyReportManagedBean implements Serializable {
 			tablaIngresos.addCell(totalIngresosCell);
 					
 			//Egresos
-			PdfPTable tablaEgresos = new PdfPTable(2);			
-			PdfPCell egresosHeader = new PdfPCell(new Phrase("Egresos", FontFactory.getFont(FontFactory.TIMES_ROMAN,12, Font.BOLD, BaseColor.WHITE)));
+			float[] widths = {0.90f,0.10f};
+			PdfPTable tablaEgresos = new PdfPTable(widths);
+			PdfPCell egresosHeader = new PdfPCell(new Phrase("EGRESOS", FontFactory.getFont(FontFactory.TIMES_ROMAN,9, Font.BOLD, BaseColor.BLACK)));
 			egresosHeader.setColspan(3);
-			egresosHeader.setBackgroundColor(BaseColor.GRAY);
+			egresosHeader.setBackgroundColor(BaseColor.LIGHT_GRAY);
 			egresosHeader.setHorizontalAlignment(Element.ALIGN_LEFT);									
 			tablaEgresos.addCell(egresosHeader);				
-			
-			PdfPCell numEgresosCellAling = null;						
-			for(ExpensesReportView r : this.expensesReportList){				
-				tablaEgresos.addCell(new Phrase(r.getDescription()));
-				numEgresosCellAling = new PdfPCell(new Phrase(r.getAmount()));
-				numEgresosCellAling.setHorizontalAlignment(Element.ALIGN_RIGHT);				
-				tablaEgresos.addCell(numEgresosCellAling);
+									
+			for(ExpensesReportView r : this.expensesReportList){								
+				PdfPCell detalleTotal = new PdfPCell(new Phrase(r.getDescription(), FontFactory.getFont(FontFactory.TIMES_ROMAN,9, Font.BOLD, BaseColor.BLACK)));
+				detalleTotal.setColspan(3);
+				detalleTotal.setBackgroundColor(BaseColor.LIGHT_GRAY);
+				tablaEgresos.addCell(detalleTotal);
+				
+				for(ExpensesDetailReportView view : r.getDetailList()){
+					PdfPCell detalleCell = new PdfPCell(new Phrase(view.getComments(), FontFactory.getFont(FontFactory.TIMES_ROMAN,9, Font.BOLD, BaseColor.BLACK)));
+					detalleCell.setColspan(1);
+					detalleCell.setHorizontalAlignment(Element.ALIGN_RIGHT);
+					//detalleCell.setBackgroundColor(BaseColor.LIGHT_GRAY);
+					tablaEgresos.addCell(detalleCell);
+					
+					PdfPCell detalleMonto = new PdfPCell(new Phrase(view.getAmount(), FontFactory.getFont(FontFactory.TIMES_ROMAN,9, Font.BOLD, BaseColor.BLACK)));
+					detalleMonto.setColspan(3);
+					detalleMonto.setHorizontalAlignment(Element.ALIGN_RIGHT);
+					tablaEgresos.addCell(detalleMonto);
+					
+				}
+				PdfPCell egresosParcial = new PdfPCell(new Phrase("SubTotal: ", FontFactory.getFont(FontFactory.TIMES_ROMAN,9, Font.BOLD, BaseColor.BLACK)));
+				egresosParcial.setColspan(1);
+				egresosParcial.setHorizontalAlignment(Element.ALIGN_RIGHT);
+				tablaEgresos.addCell(egresosParcial);
+				
+				PdfPCell egresosMonto = new PdfPCell(new Phrase(r.getAmount(), FontFactory.getFont(FontFactory.TIMES_ROMAN,9, Font.BOLD, BaseColor.BLACK)));
+				egresosMonto.setColspan(3);
+				egresosMonto.setHorizontalAlignment(Element.ALIGN_RIGHT);
+				tablaEgresos.addCell(egresosMonto);
+				
 			}			
-			PdfPCell totalEgresoCell = new PdfPCell(new Phrase("Total Egresos: " + egresosTotal));
+			PdfPCell totalEgresoCell = new PdfPCell(new Phrase("Total Egresos: ", FontFactory.getFont(FontFactory.TIMES_ROMAN,9, Font.BOLD, BaseColor.BLACK)));
 			totalEgresoCell.setHorizontalAlignment(Element.ALIGN_RIGHT);
-			totalEgresoCell.setColspan(3);
+			totalEgresoCell.setColspan(1);
 			tablaEgresos.addCell(totalEgresoCell);
+			
+			PdfPCell totalEgresoMonto = new PdfPCell(new Phrase(egresosTotal, FontFactory.getFont(FontFactory.TIMES_ROMAN,9, Font.BOLD, BaseColor.BLACK)));
+			totalEgresoMonto.setHorizontalAlignment(Element.ALIGN_RIGHT);
+			totalEgresoMonto.setColspan(3);
+			tablaEgresos.addCell(totalEgresoMonto);
 
 			//Total Mes				
-			PdfPTable totalMesTabla = new PdfPTable(1);																	
-			PdfPCell totalMesCell = new PdfPCell(new Phrase("TOTAL MES: " + total, FontFactory.getFont(FontFactory.TIMES_ROMAN,12, Font.BOLD, BaseColor.BLACK)));
+			/*PdfPTable totalMesTabla = new PdfPTable(1);																	
+			PdfPCell totalMesCell = new PdfPCell(new Phrase("TOTAL MES: " + total, FontFactory.getFont(FontFactory.TIMES_ROMAN,9, Font.BOLD, BaseColor.BLACK)));
 			totalMesCell.setHorizontalAlignment(Element.ALIGN_RIGHT);
-			totalMesTabla.addCell(totalMesCell);
-						
+			totalMesTabla.addCell(totalMesCell);*/
+			
+			PdfPCell totalMesCelda = new PdfPCell(new Phrase("TOTAL MES DE " + StringUtils.getMonth(Integer.parseInt(month)), FontFactory.getFont(FontFactory.TIMES_ROMAN,9, Font.BOLD, BaseColor.BLACK)));
+			totalMesCelda.setHorizontalAlignment(Element.ALIGN_RIGHT);
+			totalMesCelda.setBackgroundColor(BaseColor.LIGHT_GRAY);
+			totalMesCelda.setColspan(1);
+			tablaEgresos.addCell(totalMesCelda);
+			
+			/*PdfPCell espacioCell = new PdfPCell(new Phrase(" "));
+			espacioCell.setColspan(3);
+			tablaEgresos.addCell(espacioCell);*/
+			
+			PdfPCell mesTotalCell = new PdfPCell(new Phrase(total, FontFactory.getFont(FontFactory.TIMES_ROMAN,9, Font.BOLD, BaseColor.BLACK)));
+			mesTotalCell.setHorizontalAlignment(Element.ALIGN_RIGHT);
+			mesTotalCell.setColspan(3);
+			tablaEgresos.addCell(mesTotalCell);	
 	
 			document.add(tablaIngresos);
 			document.add(Chunk.NEWLINE);
 			document.add(tablaEgresos);
 			document.add(Chunk.NEWLINE);			
-			document.add(totalMesTabla);
+			//document.add(totalMesTabla);
 			document.close(); 
 			context.responseComplete();
 		}catch(DocumentException e){
